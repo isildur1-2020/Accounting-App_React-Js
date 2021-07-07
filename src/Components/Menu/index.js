@@ -25,7 +25,7 @@ const icons = {
 const paths = {
   Proyecto: "/scheme",
   Cliente: "/client",
-  Proveedor: "/nose",
+  Proveedor: "/supplier",
   Gastos: "/expense",
 };
 

@@ -4,6 +4,7 @@ import "./App.css";
 // COMPONENTS
 import Login from "./Components/Login/index";
 import Scheme from "./Components/Scheme/index";
+import Supplier from "./Components/Supplier/index";
 import Client from "./Components/Client/index";
 import Expense from "./Components/Expense/index";
 
@@ -12,6 +13,7 @@ const App = () => (
     <Switch>
       <Route exact path="/login" component={Login} />
       <Route exact path="/scheme" component={Scheme} />
+      <Route exact path="/supplier" component={Supplier} />
       <Route exact path="/client" component={Client} />
       <Route exact path="/expense" component={Expense} />
       <Redirect to="login" />
