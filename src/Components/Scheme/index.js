@@ -4,14 +4,14 @@ import Content from "./page";
 const Scheme = () => {
   const [state, setState] = useState({
     client: "",
-    budget: null,
-    colones: null,
-    dollars: null
+    budget: "",
+    colones: "",
+    dollars: "",
   });
   const [createDate, setCreateDate] = useState(new Date());
   const [initDate, setInitDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  
+
   const handleCreateChange = (date) => setCreateDate(date);
   const handleInitChange = (date) => setInitDate(date);
   const handleEndChange = (date) => setEndDate(date);
@@ -23,6 +23,7 @@ const Scheme = () => {
   const handleSubmit = (ev) => {
     ev.preventDefault();
     // ENVIAR FORMULARIO
+    console.log(state, createDate, initDate, endDate)
   };
 
   // RENDER
@@ -34,10 +35,8 @@ const Scheme = () => {
       // DATES
       createDate={createDate}
       handleCreateChange={handleCreateChange}
-
       initDate={initDate}
       handleInitChange={handleInitChange}
-
       endDate={endDate}
       handleEndChange={handleEndChange}
     />

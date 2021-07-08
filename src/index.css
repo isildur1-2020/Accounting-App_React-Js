@@ -18,6 +18,7 @@ a {
 }
 
 .horizontal-separate {
+  width: 100%;
   display: flex;
   justify-content: space-between;
 }

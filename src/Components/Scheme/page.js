@@ -43,7 +43,7 @@ const page = ({
               <InputLabel id="client-label">Cliente</InputLabel>
               <Select
                 labelId="client-label"
-                id="client"
+                name="client"
                 value={client}
                 onChange={handleChange}
               >
@@ -104,7 +104,7 @@ const page = ({
                   variant="outlined"
                   style={{ marginRight: "30px" }}
                   fullWidth
-                  value={budget*1}
+                  value={budget * 1}
                   onChange={handleChange}
                 />
                 <TextField
@@ -120,7 +120,12 @@ const page = ({
             </FormControl>
 
             <div className="Scheme__button">
-              <Button variant="contained" color="primary" fullWidth>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
                 Crear Proyecto
               </Button>
             </div>

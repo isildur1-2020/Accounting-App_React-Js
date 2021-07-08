@@ -1,24 +1,18 @@
 import React from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
-// COMPONENTS
-import Login from "./Components/Login/index";
-import Scheme from "./Components/Scheme/index";
-import Supplier from "./Components/Supplier/index";
-import Client from "./Components/Client/index";
-import Expense from "./Components/Expense/index";
+import AppRouter from "./Routers/AppRouter";
+// REDUX
+import { Provider } from "react-redux";
+import { generateStore } from "./redux/store";
 
-const App = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/scheme" component={Scheme} />
-      <Route exact path="/supplier" component={Supplier} />
-      <Route exact path="/client" component={Client} />
-      <Route exact path="/expense" component={Expense} />
-      <Redirect to="login" />
-    </Switch>
-  </BrowserRouter>
-);
+const App = () => {
+  const store = generateStore();
+
+  return (
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
+  );
+};
 
 export default App;

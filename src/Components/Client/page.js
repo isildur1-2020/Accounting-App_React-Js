@@ -14,9 +14,10 @@ import {
   Button,
   FormHelperText,
 } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 
 //======================================================================
-const Content = ({ state, handleChange, handleSubmit }) => {
+const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
   const {
     businessName,
     typeOfId,
@@ -31,7 +32,7 @@ const Content = ({ state, handleChange, handleSubmit }) => {
       <Menu title="Crear Cliente" />
       <Container component="main" maxWidth="sm">
         <CssBaseline />
-        <div className="Expense-container">
+        <div className="Client-container">
           <form noValidate onSubmit={handleSubmit}>
             <FormControl fullWidth>
               <TextField
@@ -49,6 +50,7 @@ const Content = ({ state, handleChange, handleSubmit }) => {
                 <InputLabel id="id-label">Tipo de identificación</InputLabel>
                 <Select
                   fullWidth
+                  required
                   labelId="id-label"
                   name="typeOfId"
                   value={typeOfId}
@@ -57,9 +59,9 @@ const Content = ({ state, handleChange, handleSubmit }) => {
                   <MenuItem value="">
                     <em>Seleccionar</em>
                   </MenuItem>
-                  <MenuItem value={1}>One</MenuItem>
-                  <MenuItem value={2}>Two</MenuItem>
-                  <MenuItem value={3}>Three</MenuItem>
+                  <MenuItem value="cedula">Cédula</MenuItem>
+                  <MenuItem value="pasaporte">Pasaporte</MenuItem>
+                  <MenuItem value="cedulaJuridica">Cédula Jurídica</MenuItem>
                 </Select>
                 <FormHelperText>Seleccione un tipo</FormHelperText>
               </FormControl>
@@ -67,7 +69,8 @@ const Content = ({ state, handleChange, handleSubmit }) => {
               <FormControl style={{ width: "48%" }}>
                 <TextField
                   type="number"
-                  name="idNumber"
+                  required
+                  name="numberId"
                   label="Número de identificación"
                   variant="outlined"
                   value={idNumber}
@@ -79,6 +82,7 @@ const Content = ({ state, handleChange, handleSubmit }) => {
             <FormControl fullWidth>
               <div className="horizontal-separate" style={{ margin: "15px 0" }}>
                 <TextField
+                  required
                   name="firstName"
                   label="Nombres"
                   variant="outlined"
@@ -87,6 +91,7 @@ const Content = ({ state, handleChange, handleSubmit }) => {
                   onChange={handleChange}
                 />
                 <TextField
+                  required
                   name="lastName"
                   label="Apellidos"
                   variant="outlined"
@@ -120,11 +125,34 @@ const Content = ({ state, handleChange, handleSubmit }) => {
             </FormControl>
             {/* ========================================================================= */}
             <div className="Expense__button">
-              <Button variant="contained" color="primary" fullWidth>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
                 Crear Cliente
               </Button>
             </div>
           </form>
+          <div style={{ marginTop: "20px" }}>
+            {message && (
+              <MuiAlert elevation={6} variant="filled" severity="success">
+                {message}
+              </MuiAlert>
+            )}
+            {errors &&
+              errors.map(({ msg }) => (
+                <MuiAlert
+                  key={msg}
+                  elevation={6}
+                  variant="filled"
+                  severity="error"
+                >
+                  {msg}
+                </MuiAlert>
+              ))}
+          </div>
         </div>
       </Container>
     </>
