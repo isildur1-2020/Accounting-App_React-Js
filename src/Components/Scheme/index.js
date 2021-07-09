@@ -6,18 +6,27 @@ import { BASE_URL } from "../../config/api";
 import axios from "axios";
 
 const Scheme = () => {
+  const token = window.localStorage.getItem("token");
+  const headers = {
+    "authorization-bearer": token,
+  };
+  // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
+  // DATA
   const [clients, setClients] = useState([]);
+  // STATE
+  const [createProject, setCreateDate] = useState(new Date());
+  const [initDate, setInitDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const [state, setState] = useState({
+    projectName: '',
     client: "",
     budget: "",
     exchangeRate: "",
   });
-  const [createProject, setCreateDate] = useState(new Date());
-  const [initDate, setInitDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
 
+  // =============================================================
   const handleCreateChange = (date) => setCreateDate(date);
   const handleInitChange = (date) => setInitDate(date);
   const handleEndChange = (date) => setEndDate(date);
@@ -25,6 +34,8 @@ const Scheme = () => {
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setState({ ...state, [name]: value });
+    setErr(false);
+    setMessage(false);
   };
   const handleSubmit = async (ev) => {
     ev.preventDefault();
@@ -39,10 +50,6 @@ const Scheme = () => {
     };
     // POST
     try {
-      const token = window.localStorage.getItem("token");
-      const headers = {
-        "authorization-bearer": token,
-      };
       const URL = `${BASE_URL}/project`;
       const { data } = await axios.post(URL, body, { headers });
       const { errors } = data;
@@ -55,10 +62,6 @@ const Scheme = () => {
 
   const getAllClients = async () => {
     try {
-      const token = window.localStorage.getItem("token");
-      const headers = {
-        "authorization-bearer": token,
-      };
       const URL = `${BASE_URL}/client`;
       const { data } = await axios.get(URL, { headers });
       const { clientsFound } = data;

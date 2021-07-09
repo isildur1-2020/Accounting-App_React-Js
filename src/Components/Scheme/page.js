@@ -18,7 +18,7 @@ import {
 import MuiAlert from "@material-ui/lab/Alert";
 
 //======================================================================
-const page = ({
+const Content = ({
   clients,
   state,
   handleChange,
@@ -35,35 +35,52 @@ const page = ({
   endDate,
   handleEndChange,
 }) => {
-  const { client, budget, exchangeRate } = state;
+  const { projectName, client, budget, exchangeRate } = state;
   return (
     <>
       <Menu title="Crear Proyecto" />
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className="Scheme-container">
-          <form noValidate onSubmit={handleSubmit}>
-            <FormControl fullWidth>
-              <InputLabel id="client-label">Cliente</InputLabel>
-              <Select
-                labelId="client-label"
-                name="client"
-                value={client}
-                onChange={handleChange}
-              >
-                <MenuItem value="">
-                  <em>Seleccionar</em>
-                </MenuItem>
-                {clients?.length &&
-                  clients.map(({ id, firstName, lastName }) => (
-                    <MenuItem
-                      key={id}
-                      value={id}
-                    >{`${firstName} ${lastName}`}</MenuItem>
-                  ))}
-              </Select>
-              <FormHelperText>Seleccione un cliente</FormHelperText>
-            </FormControl>
+          <form onSubmit={handleSubmit}>
+            <div
+              className="horizontal-separate"
+              style={{ alignItems: "flex-end" }}
+            >
+              <FormControl style={{ width: "48%" }}>
+                <TextField
+                  required
+                  name="projectName"
+                  label="Nombre del proyecto"
+                  variant="outlined"
+                  value={projectName}
+                  onChange={handleChange}
+                />
+              </FormControl>
+              <FormControl style={{ width: "48%" }}>
+                <InputLabel id="client-label">Cliente</InputLabel>
+                <Select
+                  required
+                  labelId="client-label"
+                  name="client"
+                  value={client}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="">
+                    <em>Seleccionar</em>
+                  </MenuItem>
+                  {clients?.length &&
+                    clients.map(({ id, firstName, lastName, numberId }) => (
+                      <MenuItem
+                        key={id}
+                        value={id}
+                      >{`${firstName} ${lastName} - ${numberId}`}</MenuItem>
+                    ))}
+                </Select>
+                <FormHelperText>Seleccione un cliente</FormHelperText>
+              </FormControl>
+            </div>
+            {/* =============================================================================== */}
 
             <FormControl>
               <div style={{ display: "flex", margin: "10px 0" }}>
@@ -87,6 +104,7 @@ const page = ({
 
             <FormControl fullWidth>
               <TextField
+                required
                 type="number"
                 name="budget"
                 label="Presupuesto General (Colones)"
@@ -106,6 +124,7 @@ const page = ({
                 }}
               >
                 <TextField
+                  required
                   type="number"
                   name="exchangeRate"
                   label="Tasa de cambio"
@@ -154,4 +173,4 @@ const page = ({
     </>
   );
 };
-export default page;
+export default Content;

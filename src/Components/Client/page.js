@@ -17,7 +17,7 @@ import {
 import MuiAlert from "@material-ui/lab/Alert";
 
 //======================================================================
-const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
+const Content = ({ state, handleChange, handleSubmit, message, err }) => {
   const {
     businessName,
     typeOfId,
@@ -33,7 +33,7 @@ const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className="Client-container">
-          <form noValidate onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <FormControl fullWidth>
               <TextField
                 name="businessName"
@@ -141,17 +141,11 @@ const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
                 {message}
               </MuiAlert>
             )}
-            {errors &&
-              errors.map(({ msg }) => (
-                <MuiAlert
-                  key={msg}
-                  elevation={6}
-                  variant="filled"
-                  severity="error"
-                >
-                  {msg}
-                </MuiAlert>
-              ))}
+            {err && (
+              <MuiAlert elevation={6} variant="filled" severity="error">
+                {err}
+              </MuiAlert>
+            )}
           </div>
         </div>
       </Container>

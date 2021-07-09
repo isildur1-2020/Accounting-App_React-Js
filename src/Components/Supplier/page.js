@@ -33,9 +33,10 @@ const Content = ({ state, handleChange, handleSubmit, err, message }) => {
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className="Expense-container">
-          <form noValidate onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}>
             <FormControl fullWidth>
               <TextField
+                required
                 name="businessName"
                 label="Nombre del negocio"
                 variant="outlined"
@@ -49,6 +50,7 @@ const Content = ({ state, handleChange, handleSubmit, err, message }) => {
               <FormControl style={{ width: "48%" }}>
                 <InputLabel id="id-label">Tipo de identificación</InputLabel>
                 <Select
+                  required
                   fullWidth
                   labelId="id-label"
                   name="typeOfId"
@@ -67,6 +69,7 @@ const Content = ({ state, handleChange, handleSubmit, err, message }) => {
 
               <FormControl style={{ width: "48%" }}>
                 <TextField
+                  required
                   type="number"
                   name="numberId"
                   label="Número de identificación"
@@ -139,7 +142,7 @@ const Content = ({ state, handleChange, handleSubmit, err, message }) => {
             )}
             {err && (
               <MuiAlert elevation={6} variant="filled" severity="error">
-                err
+                {err}
               </MuiAlert>
             )}
           </div>

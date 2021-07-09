@@ -64,7 +64,10 @@ const Content = ({
           >
             <MenuIcon />
           </IconButton>
-          <div className="horizontal-separate">
+          <div
+            className="horizontal-separate"
+            style={{ alignItems: "flex-end" }}
+          >
             <Typography
               variant="h6"
               color="inherit"

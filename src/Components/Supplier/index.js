@@ -5,8 +5,14 @@ import axios from "axios";
 import { BASE_URL } from "../../config/api";
 
 const Client = () => {
+  const token = window.localStorage.getItem("token");
+  const headers = {
+    "authorization-bearer": token,
+  };
+  // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
+  // STATE
   const [state, setState] = useState({
     businessName: "",
     typeOfId: "",
@@ -16,10 +22,13 @@ const Client = () => {
     phone: "",
     description: "",
   });
+  // ==========================================================
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setState({ ...state, [name]: value });
+    setErr(false);
+    setMessage(false);
   };
 
   const handleSubmit = async (ev) => {
@@ -27,14 +36,10 @@ const Client = () => {
     // ENVIAR FORMULARIO
     try {
       const URL = `${BASE_URL}/supplier`;
-      const token = window.localStorage.getItem("token");
-      const headers = {
-        "authorization-bearer": token,
-      };
       const { data } = await axios.post(URL, state, { headers });
-      const { errors, message } = data;
-      if (errors) return setErr("Debes completar los campos");
-      setMessage(message);
+      const { errors } = data;
+      if (errors?.length > 0) return setErr("Debes completar todos los campos");
+      setMessage("Proveedor creado con éxito");
     } catch ({ message }) {
       console.log(message);
     }

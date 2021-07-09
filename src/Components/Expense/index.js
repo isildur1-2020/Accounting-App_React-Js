@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Content from "./page";
 import moment from "moment";
 // AXIOS
@@ -6,16 +6,20 @@ import axios from "axios";
 import { BASE_URL } from "../../config/api";
 
 const Expense = () => {
-  // AXIOS
+  const refOrderFile = useRef();
+
   const token = window.localStorage.getItem("token");
   const headers = {
     "authorization-bearer": token,
   };
-  // STATE
+  // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
+  // DATA
   const [projects, setProjects] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
+  // STATE
+  const [fileSelected, setFileSelected] = useState(false);
   const [createDate, setCreateDate] = useState(new Date());
   const [state, setState] = useState({
     project: "",
@@ -29,24 +33,36 @@ const Expense = () => {
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setState({ ...state, [name]: value });
-    setMessage(false);
     setErr(false);
+    setMessage(false);
+  };
+
+  const uploadFile = async () => {
+    const formData = new FormData();
+    formData.append("orderFile", refOrderFile.current.files[0]);
+
+    let URL = `${BASE_URL}/expense/file`;
+    const { data } = await axios.post(URL, formData, { headers });
+    const { hash } = data;
+    return hash;
   };
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     // ENVIAR FORMULARIO
-    const info = {
-      ...state,
-      expenseDate: moment(createDate).unix(),
-      orderFile: "holaquehace",
-    };
     try {
-      const URL = `${BASE_URL}/expense`;
+      const info = {
+        ...state,
+        expenseDate: moment(createDate).unix(),
+        orderFile: fileSelected
+          ? await uploadFile()
+          : "No se ha subido un archivo",
+      };
+      URL = `${BASE_URL}/expense`;
       const { data } = await axios.post(URL, info, { headers });
-      const { errors, message } = data;
-      if (errors) return setErr("Debes completar los campos");
-      setMessage(message);
+      const { errors } = data;
+      if (errors?.length > 0) return setErr("Debes completar todos los campos");
+      setMessage("Gasto creado con éxito");
     } catch ({ message }) {
       console.log(message);
     }
@@ -86,6 +102,9 @@ const Expense = () => {
       suppliers={suppliers}
       err={err}
       message={message}
+      refOrderFile={refOrderFile}
+      fileSelected={fileSelected}
+      setFileSelected={setFileSelected}
       // DATE
       createDate={createDate}
       handleCreateChange={handleCreateChange}
