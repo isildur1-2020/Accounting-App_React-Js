@@ -15,17 +15,22 @@ import {
   Button,
   FormHelperText,
 } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 
 //======================================================================
 const Content = ({
   state,
   handleChange,
   handleSubmit,
+  projects,
+  suppliers,
+  err,
+  message,
   // DATE
   createDate,
   handleCreateChange,
 }) => {
-  const { project, supplier, orderNumber, description, totalExpense } = state;
+  const { project, supplier, orderId, description, totalExpense } = state;
   return (
     <>
       <Menu title="Crear Gasto" />
@@ -46,9 +51,12 @@ const Content = ({
                   <MenuItem value="">
                     <em>Seleccionar</em>
                   </MenuItem>
-                  <MenuItem value={1}>One</MenuItem>
-                  <MenuItem value={2}>Two</MenuItem>
-                  <MenuItem value={3}>Three</MenuItem>
+                  {projects &&
+                    projects.map(({ id }) => (
+                      <MenuItem key={id} value={id}>
+                        {id}
+                      </MenuItem>
+                    ))}
                 </Select>
                 <FormHelperText>Seleccione un proyecto</FormHelperText>
               </FormControl>
@@ -64,9 +72,13 @@ const Content = ({
                   <MenuItem value="">
                     <em>Seleccionar</em>
                   </MenuItem>
-                  <MenuItem value={1}>One</MenuItem>
-                  <MenuItem value={2}>Two</MenuItem>
-                  <MenuItem value={3}>Three</MenuItem>
+                  {suppliers &&
+                    suppliers.map(({ id, businessName, numberId }) => (
+                      <MenuItem
+                        key={id}
+                        value={id}
+                      >{`${businessName} - ${numberId}`}</MenuItem>
+                    ))}
                 </Select>
                 <FormHelperText>Seleccione un proveedor</FormHelperText>
               </FormControl>
@@ -76,11 +88,11 @@ const Content = ({
               <div className="horizontal-separate" style={{ margin: "20px 0" }}>
                 <TextField
                   type="number"
-                  name="orderNumber"
+                  name="orderId"
                   label="Número de factura"
                   variant="outlined"
                   style={{ width: "48%", marginTop: "20px" }}
-                  value={orderNumber}
+                  value={orderId}
                   onChange={handleChange}
                 />
                 <Schedule
@@ -131,11 +143,28 @@ const Content = ({
             </FormControl>
 
             <div className="Expense__button">
-              <Button variant="contained" color="primary" fullWidth>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+              >
                 Crear Gasto
               </Button>
             </div>
           </form>
+          <div style={{ marginTop: "20px" }}>
+            {message && (
+              <MuiAlert elevation={6} variant="filled" severity="success">
+                {message}
+              </MuiAlert>
+            )}
+            {err && (
+              <MuiAlert elevation={6} variant="filled" severity="error">
+                {err}
+              </MuiAlert>
+            )}
+          </div>
         </div>
       </Container>
     </>

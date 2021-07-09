@@ -25,7 +25,13 @@ const paths = {
   Gastos: "/expense",
 };
 
-const Content = ({ handleRedirect, drawer, setDrawer, title }) => {
+const Content = ({
+  handleRedirect,
+  drawer,
+  setDrawer,
+  title,
+  handleLogout,
+}) => {
   const nav = () => (
     <Drawer anchor="left" open={drawer} onClose={() => setDrawer(false)}>
       <div style={{ width: 220 }} role="presentation">
@@ -66,7 +72,9 @@ const Content = ({ handleRedirect, drawer, setDrawer, title }) => {
             >
               {title}
             </Typography>
-            <Button variant="outlined">Cerrar Sesión</Button>
+            <Button onClick={handleLogout} variant="outlined">
+              Cerrar Sesión
+            </Button>
           </div>
         </Toolbar>
       </AppBar>

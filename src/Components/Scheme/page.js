@@ -15,14 +15,18 @@ import {
   Button,
   FormHelperText,
 } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 
 //======================================================================
 const page = ({
+  clients,
   state,
   handleChange,
   handleSubmit,
+  err,
+  message,
   // DATES
-  createDate,
+  createProject,
   handleCreateChange,
 
   initDate,
@@ -31,7 +35,7 @@ const page = ({
   endDate,
   handleEndChange,
 }) => {
-  const { client, budget } = state;
+  const { client, budget, exchangeRate } = state;
   return (
     <>
       <Menu title="Crear Proyecto" />
@@ -50,9 +54,13 @@ const page = ({
                 <MenuItem value="">
                   <em>Seleccionar</em>
                 </MenuItem>
-                <MenuItem value={1}>One</MenuItem>
-                <MenuItem value={2}>Two</MenuItem>
-                <MenuItem value={3}>Three</MenuItem>
+                {clients?.length &&
+                  clients.map(({ id, firstName, lastName }) => (
+                    <MenuItem
+                      key={id}
+                      value={id}
+                    >{`${firstName} ${lastName}`}</MenuItem>
+                  ))}
               </Select>
               <FormHelperText>Seleccione un cliente</FormHelperText>
             </FormControl>
@@ -61,7 +69,7 @@ const page = ({
               <div style={{ display: "flex", margin: "10px 0" }}>
                 <Schedule
                   label="Creación"
-                  selectedDate={createDate}
+                  selectedDate={createProject}
                   handleDateChange={handleCreateChange}
                 />
                 <Schedule
@@ -81,7 +89,7 @@ const page = ({
               <TextField
                 type="number"
                 name="budget"
-                label="Presupuesto General"
+                label="Presupuesto General (Colones)"
                 variant="outlined"
                 style={{ marginTop: "20px" }}
                 value={budget}
@@ -99,12 +107,12 @@ const page = ({
               >
                 <TextField
                   type="number"
-                  name="colones"
-                  label="Colones"
+                  name="exchangeRate"
+                  label="Tasa de cambio"
                   variant="outlined"
                   style={{ marginRight: "30px" }}
                   fullWidth
-                  value={budget * 1}
+                  value={exchangeRate}
                   onChange={handleChange}
                 />
                 <TextField
@@ -113,8 +121,7 @@ const page = ({
                   label="Dólares"
                   variant="outlined"
                   fullWidth
-                  value={budget * 0.0016}
-                  onChange={handleChange}
+                  value={budget * exchangeRate}
                 />
               </div>
             </FormControl>
@@ -130,6 +137,18 @@ const page = ({
               </Button>
             </div>
           </form>
+          <div style={{ marginTop: "20px" }}>
+            {message && (
+              <MuiAlert elevation={6} variant="filled" severity="success">
+                {message}
+              </MuiAlert>
+            )}
+            {err && (
+              <MuiAlert elevation={6} variant="filled" severity="error">
+                {err}
+              </MuiAlert>
+            )}
+          </div>
         </div>
       </Container>
     </>

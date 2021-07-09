@@ -31,19 +31,19 @@ export const AppRouter = () => {
         />
         <PrivateRoute
           exact
-          path="/Supplier"
+          path="/supplier"
           component={Supplier}
           isAuthenticated={isAuthenticated}
         />
         <PrivateRoute
           exact
-          path="/Client"
+          path="/client"
           component={Client}
           isAuthenticated={isAuthenticated}
         />
         <PrivateRoute
           exact
-          path="Expense"
+          path="/expense"
           component={Expense}
           isAuthenticated={isAuthenticated}
         />

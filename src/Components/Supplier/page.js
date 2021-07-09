@@ -17,7 +17,7 @@ import {
 import MuiAlert from "@material-ui/lab/Alert";
 
 //======================================================================
-const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
+const Content = ({ state, handleChange, handleSubmit, err, message }) => {
   const {
     businessName,
     typeOfId,
@@ -29,10 +29,10 @@ const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
   } = state;
   return (
     <>
-      <Menu title="Crear Cliente" />
+      <Menu title="Crear Proveedor" />
       <Container component="main" maxWidth="sm">
         <CssBaseline />
-        <div className="Client-container">
+        <div className="Expense-container">
           <form noValidate onSubmit={handleSubmit}>
             <FormControl fullWidth>
               <TextField
@@ -45,12 +45,11 @@ const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
             </FormControl>
             {/* ========================================================================= */}
 
-            <div className="horizontal-separate" style={{ margin: "20px 0" }}>
+            <div className="horizontal-separate" style={{ margin: "15px 0" }}>
               <FormControl style={{ width: "48%" }}>
                 <InputLabel id="id-label">Tipo de identificación</InputLabel>
                 <Select
                   fullWidth
-                  required
                   labelId="id-label"
                   name="typeOfId"
                   value={typeOfId}
@@ -69,7 +68,6 @@ const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
               <FormControl style={{ width: "48%" }}>
                 <TextField
                   type="number"
-                  required
                   name="numberId"
                   label="Número de identificación"
                   variant="outlined"
@@ -82,7 +80,6 @@ const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
             <FormControl fullWidth>
               <div className="horizontal-separate" style={{ margin: "15px 0" }}>
                 <TextField
-                  required
                   name="firstName"
                   label="Nombres"
                   variant="outlined"
@@ -91,7 +88,6 @@ const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
                   onChange={handleChange}
                 />
                 <TextField
-                  required
                   name="lastName"
                   label="Apellidos"
                   variant="outlined"
@@ -131,7 +127,7 @@ const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
                 color="primary"
                 fullWidth
               >
-                Crear Cliente
+                Crear Proveedor
               </Button>
             </div>
           </form>
@@ -141,17 +137,11 @@ const Content = ({ state, handleChange, handleSubmit, message, errors }) => {
                 {message}
               </MuiAlert>
             )}
-            {errors &&
-              errors.map(({ msg }) => (
-                <MuiAlert
-                  key={msg}
-                  elevation={6}
-                  variant="filled"
-                  severity="error"
-                >
-                  {msg}
-                </MuiAlert>
-              ))}
+            {err && (
+              <MuiAlert elevation={6} variant="filled" severity="error">
+                err
+              </MuiAlert>
+            )}
           </div>
         </div>
       </Container>
