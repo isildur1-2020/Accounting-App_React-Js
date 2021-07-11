@@ -23,7 +23,7 @@ const Content = ({ state, handleSubmit, handleOnChange, loading, err }) => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Inicia Sesión
+          Iniciar Sesión
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField

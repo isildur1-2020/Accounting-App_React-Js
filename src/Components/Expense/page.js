@@ -89,7 +89,10 @@ const Content = ({
             </div>
             {/* ========================================================================= */}
             <FormControl fullWidth>
-              <div className="horizontal-separate" style={{ margin: "15px 0" }}>
+              <div
+                className="horizontal-separate"
+                style={{ margin: "15px 0", alignItems: "flex-end" }}
+              >
                 <TextField
                   required
                   type="number"

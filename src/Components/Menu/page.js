@@ -1,7 +1,13 @@
 // MATERIAL UI
 import Drawer from "@material-ui/core/Drawer";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import { AppBar, Toolbar, IconButton, Button } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Button,
+  Divider,
+} from "@material-ui/core";
 //=========================================================
 // ICONS
 import MenuIcon from "@material-ui/icons/Menu";
@@ -9,6 +15,7 @@ import RateReviewIcon from "@material-ui/icons/RateReview";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import GroupIcon from "@material-ui/icons/Group";
 import EuroSymbolIcon from "@material-ui/icons/EuroSymbol";
+import EditIcon from "@material-ui/icons/Edit";
 import { Typography } from "@material-ui/core";
 
 const icons = {
@@ -16,6 +23,7 @@ const icons = {
   Cliente: <PersonAddIcon color="primary" />,
   Proveedor: <GroupIcon color="primary" />,
   Gastos: <EuroSymbolIcon color="primary" />,
+  Edit: <EditIcon color="primary" />,
 };
 
 const paths = {
@@ -23,6 +31,7 @@ const paths = {
   Cliente: "/client",
   Proveedor: "/supplier",
   Gastos: "/expense",
+  Edit: "/edit",
 };
 
 const Content = ({
@@ -46,6 +55,11 @@ const Content = ({
               <ListItemText primary={text} />
             </ListItem>
           ))}
+          <Divider />
+          <ListItem button onClick={() => handleRedirect(paths.Edit)}>
+            <ListItemIcon>{icons.Edit}</ListItemIcon>
+            <ListItemText primary="Editar" />
+          </ListItem>
         </List>
       </div>
     </Drawer>

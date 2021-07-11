@@ -38,13 +38,16 @@ const Expense = () => {
   };
 
   const uploadFile = async () => {
+    const file = refOrderFile.current.files[0];
+    const type = file.type.split("/")[1];
     const formData = new FormData();
-    formData.append("orderFile", refOrderFile.current.files[0]);
+    formData.append("orderFile", file);
 
-    let URL = `${BASE_URL}/expense/file`;
+    const URL = `${BASE_URL}/expense/file`;
     const { data } = await axios.post(URL, formData, { headers });
     const { hash } = data;
-    return hash;
+
+    return `${hash}.${type}`;
   };
 
   const handleSubmit = async (ev) => {
@@ -58,7 +61,7 @@ const Expense = () => {
           ? await uploadFile()
           : "No se ha subido un archivo",
       };
-      URL = `${BASE_URL}/expense`;
+      const URL = `${BASE_URL}/expense`;
       const { data } = await axios.post(URL, info, { headers });
       const { errors } = data;
       if (errors?.length > 0) return setErr("Debes completar todos los campos");

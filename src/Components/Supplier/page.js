@@ -46,7 +46,10 @@ const Content = ({ state, handleChange, handleSubmit, err, message }) => {
             </FormControl>
             {/* ========================================================================= */}
 
-            <div className="horizontal-separate" style={{ margin: "15px 0" }}>
+            <div
+              className="horizontal-separate"
+              style={{ margin: "15px 0", alignItems: "flex-end" }}
+            >
               <FormControl style={{ width: "48%" }}>
                 <InputLabel id="id-label">Tipo de identificación</InputLabel>
                 <Select
