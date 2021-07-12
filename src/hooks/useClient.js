@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL, headers } from "../config/api";
 
-export const useClient = () => {
+export const useClient = (loading) => {
   // STATE
   const [state, setState] = useState({
     loading: true,
@@ -28,7 +28,7 @@ export const useClient = () => {
 
   useEffect(() => {
     getAllClients();
-  }, []);
+  }, [loading]);
 
   return state;
 };

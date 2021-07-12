@@ -7,6 +7,7 @@ import {
   MenuItem,
   FormHelperText,
   Button,
+  CircularProgress,
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 // COMPONENTS
@@ -20,6 +21,8 @@ const Content = ({
   handleChange,
   selectedRows,
   handleSelectedRows,
+  handleDelete,
+  loading,
 }) => {
   return (
     <>
@@ -45,18 +48,24 @@ const Content = ({
             </Select>
             <FormHelperText>Seleccione una entidad</FormHelperText>
           </div>
-          <Button
-            className="Edit__button-delete"
-            variant="contained"
-            color="secondary"
-          >
-            <DeleteIcon />
-          </Button>
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <Button
+              className="Edit__button-delete"
+              variant="contained"
+              color="secondary"
+              onClick={handleDelete}
+            >
+              <DeleteIcon />
+            </Button>
+          )}
         </div>
         <Table
           option={option}
           selectedRows={selectedRows}
           handleSelectedRows={handleSelectedRows}
+          loading={loading}
         />
       </div>
     </>

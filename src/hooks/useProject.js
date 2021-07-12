@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { BASE_URL, headers } from "../config/api";
 
-export const useProject = () => {
+export const useProject = (loading) => {
   // STATE
   const [state, setState] = useState({
     loading: true,
@@ -24,7 +24,7 @@ export const useProject = () => {
 
   useEffect(() => {
     getProjects();
-  }, []);
+  }, [loading]);
 
   return state;
 };

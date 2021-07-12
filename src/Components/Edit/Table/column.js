@@ -5,37 +5,37 @@ export const projectColumn = [
     field: "id",
     headerName: "Código",
     width: 122,
-    editable: false,
+    editable: true,
   },
   {
     field: "projectName",
     headerName: "Nombre",
     width: 128,
-    editable: false,
+    editable: true,
   },
   {
     field: "client",
     headerName: "Cliente",
     width: 170,
-    editable: false,
+    editable: true,
   },
   {
     field: "createProject",
     headerName: "Fecha de creación",
     width: 194,
-    editable: false,
+    editable: true,
   },
   {
     field: "initDate",
     headerName: "Fecha de inicio",
     width: 173,
-    editable: false,
+    editable: true,
   },
   {
     field: "endDate",
     headerName: "Fecha de fin",
     width: 155,
-    editable: false,
+    editable: true,
   },
   {
     field: "budget",
@@ -57,7 +57,7 @@ export const clientColumn = [
     field: "id",
     headerName: "Código",
     width: 122,
-    editable: false,
+    editable: true,
   },
   {
     field: "isActive",
@@ -115,7 +115,7 @@ export const supplierColumn = [
     field: "id",
     headerName: "Código",
     width: 122,
-    editable: false,
+    editable: true,
   },
   {
     field: "isActive",
@@ -173,19 +173,19 @@ export const expenseColumn = [
     field: "id",
     headerName: "Código",
     width: 122,
-    editable: false,
+    editable: true,
   },
   {
     field: "project",
     headerName: "Nombre Proyecto",
     width: 190,
-    editable: false,
+    editable: true,
   },
   {
     field: "supplier",
     headerName: "Nombre del proveedor",
     width: 220,
-    editable: false,
+    editable: true,
   },
   {
     field: "orderId",
@@ -197,7 +197,7 @@ export const expenseColumn = [
     field: "expenseDate",
     headerName: "Fecha del gasto",
     width: 180,
-    editable: false,
+    editable: true,
   },
   {
     field: "description",
@@ -216,13 +216,10 @@ export const expenseColumn = [
     headerName: "Documento",
     width: 400,
     editable: false,
-    renderCell: (params) => {
-      console.log(params);
-      return (
-        <a href="https://www.google.com" target="_blank" rel="noreferrer">
-          {params.value}
-        </a>
-      );
-    },
+    renderCell: (params) => (
+      <a href="https://www.google.com" target="_blank" rel="noreferrer">
+        {params.value}
+      </a>
+    ),
   },
 ];

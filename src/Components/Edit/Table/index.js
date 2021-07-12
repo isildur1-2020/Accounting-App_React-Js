@@ -14,7 +14,7 @@ import { useClient } from "../../../hooks/useClient";
 import { useSupplier } from "../../../hooks/useSupplier";
 import { useExpense } from "../../../hooks/useExpense";
 
-const Table = ({ option, selectedRows, handleSelectedRows }) => {
+const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
   // STATE
   const [newProjects, setNewProjects] = useState([]);
   const [newExpenses, setNewExpenses] = useState([]);
@@ -22,12 +22,11 @@ const Table = ({ option, selectedRows, handleSelectedRows }) => {
   const [projectReduce, setProjectReduce] = useState({});
   const [clientReduce, setClientReduce] = useState({});
   const [supplierReduce, setSupplierReduce] = useState({});
-  const [expenseReduce, setExpenseReduce] = useState({});
 
-  const { projectsFound } = useProject();
-  const { clientsFound } = useClient();
-  const { suppliersFound } = useSupplier();
-  const { expensesFound } = useExpense();
+  const { projectsFound } = useProject(loading);
+  const { clientsFound } = useClient(loading);
+  const { suppliersFound } = useSupplier(loading);
+  const { expensesFound } = useExpense(loading);
 
   const data = {
     // MODIFICADO (PROJECTS)
@@ -44,6 +43,8 @@ const Table = ({ option, selectedRows, handleSelectedRows }) => {
     supplier: supplierColumn,
     expense: expenseColumn,
   };
+
+  const unixToDate = (unixTime) => moment.unix(unixTime).format("DD-MM-YYYY");
 
   //========================================================================
 
@@ -65,13 +66,13 @@ const Table = ({ option, selectedRows, handleSelectedRows }) => {
       client: `${clientReduce[el.id]?.firstName} ${
         clientReduce[el.id]?.lastName
       }`,
-      createProject: moment.unix(el.createProject).format("DD-MM-YYYY"),
-      initDate: moment.unix(el.initDate).format("DD-MM-YYYY"),
-      endDate: moment.unix(el.endDate).format("DD-MM-YYYY"),
+      createProject: unixToDate(el.createProject),
+      initDate: unixToDate(el.initDate),
+      endDate: unixToDate(el.endDate),
     }));
 
     setNewProjects(newProjects);
-  }, [projectsFound]);
+  }, [projectsFound, clientReduce]);
   //========================================================================
 
   useEffect(() => {
@@ -97,7 +98,7 @@ const Table = ({ option, selectedRows, handleSelectedRows }) => {
       }),
       {}
     );
-    console.log(indexedSuppliers);
+
     setSupplierReduce(indexedSuppliers);
   }, [suppliersFound]);
 
@@ -122,7 +123,7 @@ const Table = ({ option, selectedRows, handleSelectedRows }) => {
     }));
 
     setNewExpenses(newExpenses);
-  }, [expensesFound]);
+  }, [expensesFound, projectReduce]);
 
   return (
     <div style={{ height: 400, width: "100%" }}>
