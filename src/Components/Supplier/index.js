@@ -2,13 +2,9 @@ import React, { useState } from "react";
 import Content from "./page";
 // AXIOS
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
+import { BASE_URL, headers } from "../../config/api";
 
 const Client = () => {
-  const token = window.localStorage.getItem("token");
-  const headers = {
-    "authorization-bearer": token,
-  };
   // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
@@ -31,6 +27,22 @@ const Client = () => {
     setMessage(false);
   };
 
+  const resetForm = () => {
+    setState({
+      businessName: "",
+      typeOfId: "",
+      numberId: "",
+      firstName: "",
+      lastName: "",
+      phone: "",
+      description: "",
+    });
+
+    setTimeout(() => {
+      setMessage(false);
+    }, 1500);
+  };
+
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     // ENVIAR FORMULARIO
@@ -40,6 +52,7 @@ const Client = () => {
       const { errors } = data;
       if (errors?.length > 0) return setErr("Debes completar todos los campos");
       setMessage("Proveedor creado con éxito");
+      resetForm();
     } catch ({ message }) {
       console.log(message);
     }

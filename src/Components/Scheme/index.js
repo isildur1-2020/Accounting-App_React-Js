@@ -2,14 +2,10 @@ import React, { useEffect, useState } from "react";
 import Content from "./page";
 import moment from "moment";
 // AXIOS
-import { BASE_URL } from "../../config/api";
+import { BASE_URL, headers } from "../../config/api";
 import axios from "axios";
 
 const Scheme = () => {
-  const token = window.localStorage.getItem("token");
-  const headers = {
-    "authorization-bearer": token,
-  };
   // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
@@ -20,7 +16,7 @@ const Scheme = () => {
   const [initDate, setInitDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [state, setState] = useState({
-    projectName: '',
+    projectName: "",
     client: "",
     budget: "",
     exchangeRate: "",
@@ -37,6 +33,24 @@ const Scheme = () => {
     setErr(false);
     setMessage(false);
   };
+
+  const resetForm = () => {
+    const newDate = new Date();
+    setState({
+      projectName: "",
+      client: "",
+      budget: "",
+      exchangeRate: "",
+    });
+    setCreateDate(newDate);
+    setInitDate(newDate);
+    setEndDate(newDate);
+
+    setTimeout(() => {
+      setMessage(false);
+    }, 1500);
+  };
+
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     // ENVIAR FORMULARIO
@@ -55,6 +69,7 @@ const Scheme = () => {
       const { errors } = data;
       if (errors?.length > 0) return setErr("Debes completar todos los campos");
       setMessage("Proyecto creado con éxito");
+      resetForm();
     } catch ({ message }) {
       console.log(message);
     }

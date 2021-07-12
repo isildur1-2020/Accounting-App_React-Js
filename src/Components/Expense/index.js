@@ -3,15 +3,10 @@ import Content from "./page";
 import moment from "moment";
 // AXIOS
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
+import { BASE_URL, headers } from "../../config/api";
 
 const Expense = () => {
   const refOrderFile = useRef();
-
-  const token = window.localStorage.getItem("token");
-  const headers = {
-    "authorization-bearer": token,
-  };
   // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
@@ -30,6 +25,7 @@ const Expense = () => {
   });
 
   const handleCreateChange = (date) => setCreateDate(date);
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setState({ ...state, [name]: value });
@@ -50,6 +46,22 @@ const Expense = () => {
     return `${hash}.${type}`;
   };
 
+  const resetForm = () => {
+    setState({
+      project: "",
+      supplier: "",
+      orderId: "",
+      description: "",
+      totalExpense: "",
+    });
+    setCreateDate(new Date());
+
+    setTimeout(() => {
+      setMessage(false);
+      setFileSelected(false);
+    }, 1500);
+  };
+
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     // ENVIAR FORMULARIO
@@ -66,6 +78,7 @@ const Expense = () => {
       const { errors } = data;
       if (errors?.length > 0) return setErr("Debes completar todos los campos");
       setMessage("Gasto creado con éxito");
+      resetForm();
     } catch ({ message }) {
       console.log(message);
     }

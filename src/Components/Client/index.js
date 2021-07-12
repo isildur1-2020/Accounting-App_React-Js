@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import Content from "./page";
 // AXIOS
-import { BASE_URL } from "../../config/api";
+import { BASE_URL, headers } from "../../config/api";
 import axios from "axios";
 
 const Client = () => {
-  const token = window.localStorage.getItem("token");
-  const headers = {
-    "authorization-bearer": token,
-  };
   // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
@@ -31,6 +27,21 @@ const Client = () => {
     setMessage(false);
   };
 
+  const resetForm = () => {
+    setState({
+      businessName: "",
+      typeOfId: "",
+      numberId: "",
+      firstName: "",
+      phone: "",
+      lastName: "",
+      description: "",
+    });
+    setTimeout(() => {
+      setMessage(false);
+    }, 2000);
+  };
+
   const handleSubmit = async (ev) => {
     ev.preventDefault();
     // ENVIAR FORMULARIO
@@ -40,6 +51,7 @@ const Client = () => {
       const { errors } = data;
       if (errors?.length > 0) return setErr("Completa todos los campos");
       setMessage("Cliente creado con éxito");
+      resetForm();
       // ESTA AUTORIZADO
     } catch ({ message }) {
       console.log(message);

@@ -21,7 +21,7 @@ const Content = ({ state, handleChange, handleSubmit, err, message }) => {
   const {
     businessName,
     typeOfId,
-    idNumber,
+    numberId,
     firstName,
     lastName,
     description,
@@ -77,7 +77,7 @@ const Content = ({ state, handleChange, handleSubmit, err, message }) => {
                   name="numberId"
                   label="Número de identificación"
                   variant="outlined"
-                  value={idNumber}
+                  value={numberId}
                   onChange={handleChange}
                 />
               </FormControl>
