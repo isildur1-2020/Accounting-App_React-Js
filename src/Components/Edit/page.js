@@ -45,6 +45,7 @@ const Content = ({
               <MenuItem value="client">Clientes</MenuItem>
               <MenuItem value="supplier">Proveedores</MenuItem>
               <MenuItem value="expense">Gastos</MenuItem>
+              <MenuItem value="catalog">Cuentas</MenuItem>
             </Select>
             <FormHelperText>Seleccione una entidad</FormHelperText>
           </div>

@@ -15,6 +15,8 @@ import RateReviewIcon from "@material-ui/icons/RateReview";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import GroupIcon from "@material-ui/icons/Group";
 import EuroSymbolIcon from "@material-ui/icons/EuroSymbol";
+import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
+import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import EditIcon from "@material-ui/icons/Edit";
 import { Typography } from "@material-ui/core";
 
@@ -23,6 +25,8 @@ const icons = {
   Cliente: <PersonAddIcon color="primary" />,
   Proveedor: <GroupIcon color="primary" />,
   Gastos: <EuroSymbolIcon color="primary" />,
+  Catalogo: <AccountBalanceIcon color="primary" />,
+  Usuario: <GroupAddIcon color="primary" />,
   Edit: <EditIcon color="primary" />,
 };
 
@@ -31,6 +35,8 @@ const paths = {
   Cliente: "/client",
   Proveedor: "/supplier",
   Gastos: "/expense",
+  Catalogo: "/catalog",
+  Usuario: "/signup",
   Edit: "/edit",
 };
 
@@ -45,16 +51,18 @@ const Content = ({
     <Drawer anchor="left" open={drawer} onClose={() => setDrawer(false)}>
       <div style={{ width: 220 }} role="presentation">
         <List>
-          {["Proyecto", "Cliente", "Proveedor", "Gastos"].map((text) => (
-            <ListItem
-              button
-              onClick={() => handleRedirect(paths[text])}
-              key={text}
-            >
-              <ListItemIcon>{icons[text]}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          {["Proyecto", "Cliente", "Proveedor", "Gastos", "Catalogo", "Usuario"].map(
+            (text) => (
+              <ListItem
+                button
+                onClick={() => handleRedirect(paths[text])}
+                key={text}
+              >
+                <ListItemIcon>{icons[text]}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            )
+          )}
           <Divider />
           <ListItem button onClick={() => handleRedirect(paths.Edit)}>
             <ListItemIcon>{icons.Edit}</ListItemIcon>

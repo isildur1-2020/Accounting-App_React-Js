@@ -5,8 +5,9 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { BASE_URL } from "../../config/api";
 // REDUX
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "../../redux/actions/authAction";
+import { useEffect } from "react";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,33 @@ const SignIn = () => {
     // ENVIAR FORMULARIO
     auth();
   };
+
+  //===================================================================
+  /*VERIFICAR SI ESTÁ AUTENTICADO*/
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  const isAuth = async () => {
+    try {
+      if (!isAuthenticated) {
+        const token = window.localStorage.getItem("token");
+        if (token) {
+          const URL = `${BASE_URL}/auth`;
+          const headers = {
+            "authorization-bearer": token,
+          };
+          const { data } = await axios.post(URL, null, { headers });
+          if (data.isAllowed) {
+            dispatch(authAction());
+          }
+        }
+      }
+    } catch ({ message }) {
+      console.log(message);
+    }
+  };
+
+  useEffect(() => {
+    isAuth();
+  }, [isAuthenticated]);
 
   return (
     <Content

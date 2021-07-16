@@ -7,12 +7,14 @@ import {
   clientColumn,
   supplierColumn,
   expenseColumn,
+  catalogColumn
 } from "./column";
 // HOOKS
 import { useProject } from "../../../hooks/useProject";
 import { useClient } from "../../../hooks/useClient";
 import { useSupplier } from "../../../hooks/useSupplier";
 import { useExpense } from "../../../hooks/useExpense";
+import { useCatalog } from '../../../hooks/useCatalog'
 
 const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
   // STATE
@@ -27,6 +29,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
   const { clientsFound } = useClient(loading);
   const { suppliersFound } = useSupplier(loading);
   const { expensesFound } = useExpense(loading);
+  const { accountsFound } = useCatalog(loading);
 
   const data = {
     // MODIFICADO (PROJECTS)
@@ -35,6 +38,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
     supplier: suppliersFound,
     // MODIFICADO (EXPENSES)
     expense: newExpenses,
+    catalog: accountsFound
   };
 
   const columns = {
@@ -42,6 +46,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
     client: clientColumn,
     supplier: supplierColumn,
     expense: expenseColumn,
+    catalog: catalogColumn
   };
 
   const unixToDate = (unixTime) => moment.unix(unixTime).format("DD-MM-YYYY");
@@ -63,8 +68,8 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
     // CREAMOS LOS NUEVOS PROYECTOS CON INFORMACIÓN COMPLETA
     const newProjects = projectsFound.map((el) => ({
       ...el,
-      client: `${clientReduce[el.id]?.firstName} ${
-        clientReduce[el.id]?.lastName
+      client: `${clientReduce[el.client]?.firstName} ${
+        clientReduce[el.client]?.lastName
       }`,
       createProject: unixToDate(el.createProject),
       initDate: unixToDate(el.initDate),
@@ -117,13 +122,13 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
     // CREAMOS LOS NUEVOS GASTOS CON INFORMACIÓN COMPLETA
     const newExpenses = expensesFound.map((el) => ({
       ...el,
-      project: projectReduce[el.id]?.projectName,
-      supplier: supplierReduce[el.id]?.businessName,
+      project: projectReduce[el.project]?.projectName,
+      supplier: supplierReduce[el.supplier]?.businessName,
       expenseDate: moment.unix(el.expenseDate).format("DD-MM-YYYY"),
     }));
 
     setNewExpenses(newExpenses);
-  }, [expensesFound, projectReduce]);
+  }, [expensesFound, projectReduce, supplierReduce]);
 
   return (
     <div style={{ height: 400, width: "100%" }}>

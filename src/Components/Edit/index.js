@@ -10,6 +10,7 @@ const titles = {
   client: "Editar clientes",
   supplier: "Editar proveedores",
   expense: "Editar gastos",
+  catalog: "Editar Cuentas",
 };
 
 const Edit = () => {
@@ -36,6 +37,7 @@ const Edit = () => {
       setLoading(false);
     } catch ({ message }) {
       console.log(message);
+      setLoading(false);
     }
   };
 

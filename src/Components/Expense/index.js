@@ -35,7 +35,6 @@ const Expense = () => {
 
   const uploadFile = async () => {
     const file = refOrderFile.current.files[0];
-    const type = file.type.split("/")[1];
     const formData = new FormData();
     formData.append("orderFile", file);
 
@@ -43,7 +42,7 @@ const Expense = () => {
     const { data } = await axios.post(URL, formData, { headers });
     const { hash } = data;
 
-    return `${hash}.${type}`;
+    return hash;
   };
 
   const resetForm = () => {

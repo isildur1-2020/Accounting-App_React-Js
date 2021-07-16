@@ -1,4 +1,5 @@
 import React from "react";
+import { URL_IMAGES, token } from "../../../config/api";
 // PROJECT
 export const projectColumn = [
   {
@@ -217,9 +218,89 @@ export const expenseColumn = [
     width: 400,
     editable: false,
     renderCell: (params) => (
-      <a href="https://www.google.com" target="_blank" rel="noreferrer">
+      <a
+        href={`${URL_IMAGES}/${params.value}?token=${token}`}
+        target="_blank"
+        rel="noreferrer"
+      >
         {params.value}
       </a>
     ),
+  },
+];
+
+// CATALOG COLUMN
+export const catalogColumn = [
+  {
+    field: "id",
+    headerName: "Código",
+    width: 122,
+    editable: true,
+  },
+  {
+    field: "isActive",
+    headerName: "Activo",
+    width: 122,
+    editable: true,
+  },
+  {
+    field: "mayorAccount",
+    headerName: "Cuenta mayor",
+    width: 200,
+    editable: true,
+  },
+  {
+    field: "mayorAccountName",
+    headerName: "Nombre cuenta mayor",
+    width: 220,
+    editable: true,
+  },
+  {
+    field: "subAccount",
+    headerName: "Sub cuenta",
+    width: 200,
+    editable: true,
+  },
+  {
+    field: "subAccountName",
+    headerName: "Nombre sub cuenta",
+    width: 220,
+    editable: true,
+  },
+  {
+    field: "debitColones",
+    headerName: "Débito Colones",
+    width: 200,
+    editable: true,
+  },
+  {
+    field: "creditColones",
+    headerName: "Crédito Colones",
+    width: 200,
+    editable: true,
+  },
+  {
+    field: "debitDollars",
+    headerName: "Débito Dólares",
+    width: 200,
+    editable: true,
+  },
+  {
+    field: "creditDollars",
+    headerName: "Crédito dólares",
+    width: 200,
+    editable: true,
+  },
+  {
+    field: "exchangeRate",
+    headerName: "Tasa de cambio",
+    width: 200,
+    editable: true,
+  },
+  {
+    field: "orderReport",
+    headerName: "Orden reporte",
+    width: 200,
+    editable: true,
   },
 ];

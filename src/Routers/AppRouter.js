@@ -6,10 +6,12 @@ import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
 // ======================================
 import Login from "../Components/Login/index";
+import Signup from "../Components/Signup/index";
 import Scheme from "../Components/Scheme/index";
 import Supplier from "../Components/Supplier/index";
 import Client from "../Components/Client/index";
 import Expense from "../Components/Expense/index";
+import Catalog from '../Components/Catalog/index'
 import Edit from "../Components/Edit/index";
 
 export const AppRouter = () => {
@@ -22,6 +24,12 @@ export const AppRouter = () => {
           exact
           path="/login"
           component={Login}
+          isAuthenticated={isAuthenticated}
+        />
+        <PrivateRoute
+          exact
+          path="/signup"
+          component={Signup}
           isAuthenticated={isAuthenticated}
         />
         <PrivateRoute
@@ -46,6 +54,12 @@ export const AppRouter = () => {
           exact
           path="/expense"
           component={Expense}
+          isAuthenticated={isAuthenticated}
+        />
+        <PrivateRoute
+          exact
+          path="/catalog"
+          component={Catalog}
           isAuthenticated={isAuthenticated}
         />
         <PrivateRoute
