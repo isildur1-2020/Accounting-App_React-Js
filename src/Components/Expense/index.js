@@ -13,6 +13,7 @@ const Expense = () => {
   // DATA
   const [projects, setProjects] = useState([]);
   const [suppliers, setSuppliers] = useState([]);
+  const [accounts, setAccounts] = useState([]);
   // STATE
   const [fileSelected, setFileSelected] = useState(false);
   const [createDate, setCreateDate] = useState(new Date());
@@ -21,6 +22,7 @@ const Expense = () => {
     supplier: "",
     orderId: "",
     description: "",
+    expenseCatalog: "",
     totalExpense: "",
   });
 
@@ -103,9 +105,21 @@ const Expense = () => {
     }
   };
 
+  const getAllCatalog = async () => {
+    try {
+      const URL = `${BASE_URL}/catalog`;
+      const { data } = await axios.get(URL, { headers });
+      console.log(data.accountsFound);
+      setAccounts(data.accountsFound);
+    } catch ({ message }) {
+      console.log(message);
+    }
+  };
+
   useEffect(() => {
     getAllProjects();
     getAllSuppliers();
+    getAllCatalog();
   }, []);
 
   return (
@@ -113,8 +127,10 @@ const Expense = () => {
       state={state}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
+      // DATA
       projects={projects}
       suppliers={suppliers}
+      accounts={accounts}
       err={err}
       message={message}
       refOrderFile={refOrderFile}

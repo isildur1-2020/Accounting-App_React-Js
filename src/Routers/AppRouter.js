@@ -26,7 +26,7 @@ export const AppRouter = () => {
           component={Login}
           isAuthenticated={isAuthenticated}
         />
-        <PrivateRoute
+        <PublicRoute
           exact
           path="/signup"
           component={Signup}

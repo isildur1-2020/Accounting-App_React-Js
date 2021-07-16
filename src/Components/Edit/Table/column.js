@@ -207,6 +207,12 @@ export const expenseColumn = [
     editable: true,
   },
   {
+    field: "expenseCatalog",
+    headerName: "Cuenta",
+    width: 200,
+    editable: true,
+  },
+  {
     field: "totalExpense",
     headerName: "Valor total",
     width: 160,

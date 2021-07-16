@@ -7,14 +7,14 @@ import {
   clientColumn,
   supplierColumn,
   expenseColumn,
-  catalogColumn
+  catalogColumn,
 } from "./column";
 // HOOKS
 import { useProject } from "../../../hooks/useProject";
 import { useClient } from "../../../hooks/useClient";
 import { useSupplier } from "../../../hooks/useSupplier";
 import { useExpense } from "../../../hooks/useExpense";
-import { useCatalog } from '../../../hooks/useCatalog'
+import { useCatalog } from "../../../hooks/useCatalog";
 
 const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
   // STATE
@@ -24,6 +24,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
   const [projectReduce, setProjectReduce] = useState({});
   const [clientReduce, setClientReduce] = useState({});
   const [supplierReduce, setSupplierReduce] = useState({});
+  const [catalogReduce, setCatalogReduce] = useState({});
 
   const { projectsFound } = useProject(loading);
   const { clientsFound } = useClient(loading);
@@ -38,7 +39,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
     supplier: suppliersFound,
     // MODIFICADO (EXPENSES)
     expense: newExpenses,
-    catalog: accountsFound
+    catalog: accountsFound,
   };
 
   const columns = {
@@ -46,7 +47,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
     client: clientColumn,
     supplier: supplierColumn,
     expense: expenseColumn,
-    catalog: catalogColumn
+    catalog: catalogColumn,
   };
 
   const unixToDate = (unixTime) => moment.unix(unixTime).format("DD-MM-YYYY");
@@ -106,11 +107,25 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
 
     setSupplierReduce(indexedSuppliers);
   }, [suppliersFound]);
+  //========================================================================
+
+  useEffect(() => {
+    // INDEXAMOS LAS CUENTAS POR EL ID
+    const indexedCatalog = accountsFound.reduce(
+      (acc, el) => ({
+        ...acc,
+        [el.id]: el,
+      }),
+      {}
+    );
+
+    setCatalogReduce(indexedCatalog);
+  }, [accountsFound]);
 
   //========================================================================
 
   useEffect(() => {
-    // INDEXAMOS LOS PROVEEDORES POR EL ID
+    // INDEXAMOS LOS GASTOS POR EL ID
     // const indexedExpenses = expensesFound.reduce(
     //   (acc, el) => ({
     //     ...acc,
@@ -125,6 +140,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
       project: projectReduce[el.project]?.projectName,
       supplier: supplierReduce[el.supplier]?.businessName,
       expenseDate: moment.unix(el.expenseDate).format("DD-MM-YYYY"),
+      expenseCatalog: catalogReduce[el.expenseCatalog]?.subAccountName,
     }));
 
     setNewExpenses(newExpenses);

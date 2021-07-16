@@ -24,6 +24,7 @@ const Content = ({
   handleSubmit,
   projects,
   suppliers,
+  accounts,
   err,
   message,
   refOrderFile,
@@ -33,7 +34,14 @@ const Content = ({
   createDate,
   handleCreateChange,
 }) => {
-  const { project, supplier, orderId, description, totalExpense } = state;
+  const {
+    project,
+    supplier,
+    orderId,
+    description,
+    expenseCatalog,
+    totalExpense,
+  } = state;
   return (
     <>
       <Menu title="Crear Gasto" />
@@ -125,14 +133,24 @@ const Content = ({
                   onChange={handleChange}
                 />
               </FormControl>
-              {/* MODIFICAR ESTA PARTE PARA EL CATALOGO DE GASTO */}
               <FormControl style={{ width: "48%" }}>
                 <InputLabel id="expense-label">Catálogo de gastos</InputLabel>
-                <Select labelId="expense-label" name="expenseCatalog" value="">
+                <Select
+                  required
+                  labelId="expense-label"
+                  name="expenseCatalog"
+                  onChange={handleChange}
+                  value={expenseCatalog}
+                >
                   <MenuItem value="">
                     <em>Seleccionar</em>
                   </MenuItem>
-                  <MenuItem>002</MenuItem>
+                  {accounts &&
+                    accounts.map(({ id, subAccountName }) => (
+                      <MenuItem key={id} value={id}>
+                        {subAccountName}
+                      </MenuItem>
+                    ))}
                 </Select>
                 <FormHelperText>Seleccione un gasto</FormHelperText>
               </FormControl>
