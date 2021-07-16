@@ -19,7 +19,7 @@ const Content = ({ state, handleSubmit, handleChange, err, message }) => {
 
   return (
     <>
-      <Menu title="Crear Cuenta" />
+      <Menu title="Crear Usuario" />
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className="Expense-container">
