@@ -11,7 +11,7 @@ export const projectColumn = [
   {
     field: "projectName",
     headerName: "Nombre",
-    width: 128,
+    width: 250,
     editable: true,
   },
   {
@@ -69,7 +69,7 @@ export const clientColumn = [
   {
     field: "businessName",
     headerName: "Nombre del negocio",
-    width: 208,
+    width: 250,
     editable: true,
   },
   {
@@ -87,7 +87,7 @@ export const clientColumn = [
   {
     field: "firstName",
     headerName: "Nombres",
-    width: 145,
+    width: 140,
     editable: true,
   },
   {
@@ -127,7 +127,7 @@ export const supplierColumn = [
   {
     field: "businessName",
     headerName: "Nombre del negocio",
-    width: 225,
+    width: 250,
     editable: true,
   },
   {
@@ -145,7 +145,7 @@ export const supplierColumn = [
   {
     field: "firstName",
     headerName: "Nombres",
-    width: 135,
+    width: 140,
     editable: true,
   },
   {
@@ -179,13 +179,13 @@ export const expenseColumn = [
   {
     field: "project",
     headerName: "Nombre Proyecto",
-    width: 190,
+    width: 250,
     editable: true,
   },
   {
     field: "supplier",
     headerName: "Nombre del proveedor",
-    width: 220,
+    width: 250,
     editable: true,
   },
   {
@@ -202,7 +202,7 @@ export const expenseColumn = [
   },
   {
     field: "description",
-    headerName: "Description",
+    headerName: "Descripción",
     width: 200,
     editable: true,
   },
@@ -258,7 +258,7 @@ export const catalogColumn = [
   {
     field: "mayorAccountName",
     headerName: "Nombre cuenta mayor",
-    width: 220,
+    width: 250,
     editable: true,
   },
   {
@@ -270,7 +270,7 @@ export const catalogColumn = [
   {
     field: "subAccountName",
     headerName: "Nombre sub cuenta",
-    width: 220,
+    width: 250,
     editable: true,
   },
   {

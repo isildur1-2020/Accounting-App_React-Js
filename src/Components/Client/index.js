@@ -8,6 +8,7 @@ const Client = () => {
   // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   // STATE
   const [state, setState] = useState({
     businessName: "",
@@ -44,10 +45,14 @@ const Client = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    // VERIFICAR SI ESTÁ CARGANDO
+    if (loading) return;
     // ENVIAR FORMULARIO
     try {
       const URL = `${BASE_URL}/client`;
+      setLoading(true);
       const { data } = await axios.post(URL, state, { headers });
+      setLoading(false);
       const { errors } = data;
       if (errors?.length > 0) return setErr("Completa todos los campos");
       setMessage("Cliente creado con éxito");
@@ -55,16 +60,18 @@ const Client = () => {
       // ESTA AUTORIZADO
     } catch ({ message }) {
       console.log(message);
+      setLoading(false);
     }
   };
 
   return (
     <Content
+      err={err}
       state={state}
+      message={message}
+      loading={loading}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      err={err}
-      message={message}
     />
   );
 };

@@ -8,6 +8,7 @@ const Client = () => {
   // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   // STATE
   const [state, setState] = useState({
     businessName: "",
@@ -45,26 +46,32 @@ const Client = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    // VERIFICAR LOADING
+    if (loading) return;
     // ENVIAR FORMULARIO
     try {
       const URL = `${BASE_URL}/supplier`;
+      setLoading(true);
       const { data } = await axios.post(URL, state, { headers });
+      setLoading(false);
       const { errors } = data;
       if (errors?.length > 0) return setErr("Debes completar todos los campos");
       setMessage("Proveedor creado con éxito");
       resetForm();
     } catch ({ message }) {
       console.log(message);
+      setLoading(false);
     }
   };
 
   return (
     <Content
+      err={err}
       state={state}
+      loading={loading}
+      message={message}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      err={err}
-      message={message}
     />
   );
 };

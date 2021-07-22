@@ -1,23 +1,22 @@
 import React from "react";
-import "./styles.css";
 // COMPONENTS
 import Menu from "../Menu/index";
+import SubmitButton from "../SubmitButton/index";
 // MATERIAL UI
-import {
-  Container,
-  CssBaseline,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  TextField,
-  Button,
-  FormHelperText,
-} from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import { CssBaseline } from "@material-ui/core";
+import { Container, FormControl, InputLabel } from "@material-ui/core";
+import { Select, MenuItem, TextField, FormHelperText } from "@material-ui/core";
 //======================================================================
-const Content = ({ state, handleChange, handleSubmit, err, message }) => {
+
+const Content = ({
+  err,
+  state,
+  loading,
+  message,
+  handleChange,
+  handleSubmit,
+}) => {
   const {
     businessName,
     typeOfId,
@@ -126,16 +125,7 @@ const Content = ({ state, handleChange, handleSubmit, err, message }) => {
               </div>
             </FormControl>
             {/* ========================================================================= */}
-            <div className="Expense__button">
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Crear Proveedor
-              </Button>
-            </div>
+            <SubmitButton loading={loading} text="Crear Proveedor" />
           </form>
           <div style={{ marginTop: "20px" }}>
             {message && (

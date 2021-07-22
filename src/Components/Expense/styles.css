@@ -1,11 +1,7 @@
 .Expense-container {
-    height: 80vh;
+  height: 80vh;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-.Expense__button {
-    margin-top: 40px;
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }

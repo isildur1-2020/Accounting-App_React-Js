@@ -3,30 +3,24 @@ import "./styles.css";
 // COMPONENTS
 import Menu from "../Menu/index";
 import Schedule from "../Schedule/index";
+import SubmitButton from "../SubmitButton/index";
 // MATERIAL UI
-import {
-  Container,
-  CssBaseline,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  TextField,
-  Button,
-  FormHelperText,
-} from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import { InputLabel, Select, MenuItem } from "@material-ui/core";
+import { TextField, Button, FormHelperText } from "@material-ui/core";
+import { Container, CssBaseline, FormControl } from "@material-ui/core";
 //======================================================================
+
 const Content = ({
+  err,
   state,
-  handleChange,
-  handleSubmit,
+  loading,
+  message,
+  accounts,
   projects,
   suppliers,
-  accounts,
-  err,
-  message,
+  handleChange,
+  handleSubmit,
   refOrderFile,
   fileSelected,
   setFileSelected,
@@ -191,18 +185,9 @@ const Content = ({
                 </Button>
               </div>
             </FormControl>
-
-            <div className="Expense__button">
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Crear Gasto
-              </Button>
-            </div>
+            <SubmitButton loading={loading} text="Crear Gasto" />
           </form>
+
           <div style={{ marginTop: "20px" }}>
             {message && (
               <MuiAlert elevation={6} variant="filled" severity="success">

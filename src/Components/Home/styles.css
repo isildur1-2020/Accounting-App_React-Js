@@ -1,0 +1,11 @@
+.Home {
+  position: relative;
+}
+
+.Home img {
+  position: absolute;
+  z-index: -1000;
+  opacity: 0.8;
+  width: 100%;
+  background-repeat: no-repeat;
+}

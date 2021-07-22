@@ -3,16 +3,16 @@ import Content from "./page";
 import { useHistory } from "react-router-dom";
 // AXIOS
 import axios from "axios";
-import { BASE_URL } from "../../config/api";
+import { token, headers, BASE_URL } from "../../config/api";
 // REDUX
 import { useDispatch, useSelector } from "react-redux";
 import { authAction } from "../../redux/actions/authAction";
 import { useEffect } from "react";
 
 const SignIn = () => {
-  const dispatch = useDispatch();
   const history = useHistory();
-
+  const dispatch = useDispatch();
+  // STATE
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
@@ -27,16 +27,17 @@ const SignIn = () => {
   };
 
   const auth = async () => {
-    const URL = `${BASE_URL}/login`;
     try {
       setLoading(true);
+      const URL = `${BASE_URL}/login`;
       const { data } = await axios.post(URL, state);
       const { authenticated, message, token } = data;
       setLoading(false);
       if (!authenticated) return setErr(message);
-      dispatch(authAction());
+
       window.localStorage.setItem("token", token);
-      history.push("/scheme");
+      dispatch(authAction());
+      history.push("/home");
     } catch ({ message }) {
       console.log(message);
       setLoading(false);
@@ -55,16 +56,10 @@ const SignIn = () => {
   const isAuth = async () => {
     try {
       if (!isAuthenticated) {
-        const token = window.localStorage.getItem("token");
         if (token) {
           const URL = `${BASE_URL}/auth`;
-          const headers = {
-            "authorization-bearer": token,
-          };
           const { data } = await axios.post(URL, null, { headers });
-          if (data.isAllowed) {
-            dispatch(authAction());
-          }
+          if (data.isAllowed) dispatch(authAction());
         }
       }
     } catch ({ message }) {

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Route, Redirect } from "react-router-dom";
 // AXIOS
 import axios from "axios";
-import { BASE_URL } from "../config/api";
+import { token, headers, BASE_URL } from "../config/api";
 // REDUX
 import { authAction } from "../redux/actions/authAction";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,16 +15,10 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   const isAuth = async () => {
     try {
       if (!isAuthenticated) {
-        const token = window.localStorage.getItem("token");
         if (token) {
           const URL = `${BASE_URL}/auth`;
-          const headers = {
-            "authorization-bearer": token,
-          };
           const { data } = await axios.post(URL, null, { headers });
-          if (data.isAllowed) {
-            dispatch(authAction());
-          }
+          if (data.isAllowed) dispatch(authAction());
         }
       }
     } catch ({ message }) {

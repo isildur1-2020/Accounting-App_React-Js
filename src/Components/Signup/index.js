@@ -8,6 +8,7 @@ const Signup = () => {
   // STATE
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [state, setState] = useState({
     username: "",
     password: "",
@@ -28,17 +29,22 @@ const Signup = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    // VERIFICAR LOADING
+    if (loading) return;
     // ENVIAR FORMULARIO
     try {
+      setLoading(true);
       const URL = `${BASE_URL}/user`;
       const { data } = await axios.post(URL, state, { headers });
+      setLoading(false);
       const { invalid, errors } = data;
       if (invalid) return setErr("Verificación inválida");
       else if (errors?.length > 0) return setErr("Completa todos los campos");
       setMessage(data?.message);
-      resetForm()
+      resetForm();
     } catch ({ message }) {
       console.log(message);
+      setLoading(false);
     }
   };
 
@@ -53,11 +59,11 @@ const Signup = () => {
 
   return (
     <Content
+      err={err}
       state={state}
+      message={message}
       handleSubmit={handleSubmit}
       handleChange={handleChange}
-      err={err}
-      message={message}
     />
   );
 };

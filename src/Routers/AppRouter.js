@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, HashRouter, Switch, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 // COMPONENTS
 import PrivateRoute from "./PrivateRoute";
@@ -7,18 +7,19 @@ import PublicRoute from "./PublicRoute";
 // ======================================
 import Login from "../Components/Login/index";
 import Signup from "../Components/Signup/index";
+import Home from '../Components/Home/index'
 import Scheme from "../Components/Scheme/index";
 import Supplier from "../Components/Supplier/index";
 import Client from "../Components/Client/index";
 import Expense from "../Components/Expense/index";
-import Catalog from '../Components/Catalog/index'
+import Catalog from "../Components/Catalog/index";
 import Edit from "../Components/Edit/index";
 
 export const AppRouter = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
         <PublicRoute
           exact
@@ -26,10 +27,16 @@ export const AppRouter = () => {
           component={Login}
           isAuthenticated={isAuthenticated}
         />
-        <PublicRoute
+        <PrivateRoute
           exact
           path="/signup"
           component={Signup}
+          isAuthenticated={isAuthenticated}
+        />
+        <PrivateRoute
+          exact
+          path="/home"
+          component={Home}
           isAuthenticated={isAuthenticated}
         />
         <PrivateRoute
@@ -70,7 +77,7 @@ export const AppRouter = () => {
         />
         <Redirect to="/login" />
       </Switch>
-    </BrowserRouter>
+    </HashRouter>
   );
 };
 

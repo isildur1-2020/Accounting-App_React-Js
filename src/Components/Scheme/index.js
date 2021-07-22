@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Content from "./page";
 import moment from "moment";
 // AXIOS
 import { BASE_URL, headers } from "../../config/api";
 import axios from "axios";
+// HOOKS
+import { useClient } from "../../hooks/useClient";
 
 const Scheme = () => {
   // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   // DATA
-  const [clients, setClients] = useState([]);
+  const { clientsFound } = useClient();
   // STATE
   const [createProject, setCreateDate] = useState(new Date());
   const [initDate, setInitDate] = useState(new Date());
@@ -53,6 +56,8 @@ const Scheme = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    // VERIFICAR SI ESTÁ CARGANDO
+    if (loading) return;
     // ENVIAR FORMULARIO
     const { exchangeRate, budget } = state;
     const body = {
@@ -65,40 +70,29 @@ const Scheme = () => {
     // POST
     try {
       const URL = `${BASE_URL}/project`;
+      setLoading(true);
       const { data } = await axios.post(URL, body, { headers });
+      setLoading(false);
       const { errors } = data;
       if (errors?.length > 0) return setErr("Debes completar todos los campos");
       setMessage("Proyecto creado con éxito");
       resetForm();
     } catch ({ message }) {
       console.log(message);
+      setLoading(false);
     }
   };
-
-  const getAllClients = async () => {
-    try {
-      const URL = `${BASE_URL}/client`;
-      const { data } = await axios.get(URL, { headers });
-      const { clientsFound } = data;
-      setClients(clientsFound);
-    } catch ({ message }) {
-      console.log(message);
-    }
-  };
-
-  useEffect(() => {
-    getAllClients();
-  }, []);
 
   // RENDER
   return (
     <Content
-      clients={clients}
+      err={err}
       state={state}
+      clients={clientsFound}
+      message={message}
+      loading={loading}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
-      err={err}
-      message={message}
       // DATES
       createProject={createProject}
       handleCreateChange={handleCreateChange}

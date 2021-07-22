@@ -1,22 +1,22 @@
 import React from "react";
-import "./styles.css";
 // COMPONENTS
 import Menu from "../Menu/index";
+import SubmitButton from "../SubmitButton/index";
 // MATERIAL UI
-import {
-  Container,
-  CssBaseline,
-  FormControl,
-  TextField,
-  Button,
-} from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import { CssBaseline } from "@material-ui/core";
+import { Container, FormControl, TextField } from "@material-ui/core";
 //======================================================================
 
-const Content = ({ state, handleSubmit, handleChange, err, message }) => {
+const Content = ({
+  err,
+  state,
+  loading,
+  message,
+  handleSubmit,
+  handleChange,
+}) => {
   const { username, password, secret } = state;
-
   return (
     <>
       <Menu title="Crear Usuario" />
@@ -30,7 +30,7 @@ const Content = ({ state, handleSubmit, handleChange, err, message }) => {
             >
               <FormControl style={{ width: "48%" }}>
                 <TextField
-                  //   required
+                  required
                   name="username"
                   label="Nombre de usuario"
                   variant="outlined"
@@ -40,7 +40,7 @@ const Content = ({ state, handleSubmit, handleChange, err, message }) => {
               </FormControl>
               <FormControl style={{ width: "48%" }}>
                 <TextField
-                  //   required
+                  required
                   type="password"
                   name="password"
                   label="Contraseña"
@@ -54,7 +54,7 @@ const Content = ({ state, handleSubmit, handleChange, err, message }) => {
 
             <FormControl fullWidth style={{ marginTop: "20px" }}>
               <TextField
-                //   required
+                required
                 type="password"
                 name="secret"
                 label="Verificación"
@@ -63,18 +63,7 @@ const Content = ({ state, handleSubmit, handleChange, err, message }) => {
                 onChange={handleChange}
               />
             </FormControl>
-            {/* ========================================================================= */}
-
-            <div className="Expense__button">
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Crear Usuario
-              </Button>
-            </div>
+            <SubmitButton loading={loading} text="Crear Usuario" />
           </form>
           <div style={{ marginTop: "20px" }}>
             {message && (

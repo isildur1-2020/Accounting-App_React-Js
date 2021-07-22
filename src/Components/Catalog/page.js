@@ -1,21 +1,31 @@
 import React from "react";
-import "./styles.css";
 // COMPONENTS
 import Menu from "../Menu/index";
+import SubmitButton from "../SubmitButton/index";
 // MATERIAL UI
-import {
-  Container,
-  CssBaseline,
-  FormControl,
-  InputLabel,
-  TextField,
-  Button,
-} from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import { CssBaseline } from "@material-ui/core";
+import { Container, FormControl, TextField, Button } from "@material-ui/core";
+import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 //======================================================================
 
-const Content = ({ state, handleSubmit, handleChange, err, message }) => {
+const accountStyle = {
+  width: "48%",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+};
+
+const Content = ({
+  err,
+  state,
+  loading,
+  message,
+  handleSubmit,
+  handleChange,
+  handleChangeAccount,
+  handleDeleteAccount,
+}) => {
   const {
     mayorAccount,
     mayorAccountName,
@@ -40,20 +50,23 @@ const Content = ({ state, handleSubmit, handleChange, err, message }) => {
               className="horizontal-separate"
               style={{ alignItems: "flex-end" }}
             >
-              <FormControl style={{ width: "48%" }}>
+              <FormControl style={accountStyle}>
                 <TextField
-                  //   required
-                  type="number"
+                  required
+                  fullWidth
                   name="mayorAccount"
                   label="Cuenta mayor"
                   variant="outlined"
                   value={mayorAccount}
-                  onChange={handleChange}
+                  onChange={handleChangeAccount}
                 />
+                <Button onClick={() => handleDeleteAccount("mayorAccount")}>
+                  <DeleteOutlineIcon />
+                </Button>
               </FormControl>
               <FormControl style={{ width: "48%" }}>
                 <TextField
-                  //   required
+                  required
                   name="mayorAccountName"
                   label="Nombre cuenta mayor"
                   variant="outlined"
@@ -68,20 +81,23 @@ const Content = ({ state, handleSubmit, handleChange, err, message }) => {
               className="horizontal-separate"
               style={{ marginTop: "20px", alignItems: "flex-end" }}
             >
-              <FormControl style={{ width: "48%" }}>
+              <FormControl style={accountStyle}>
                 <TextField
-                  //   required
-                  type="number"
+                  required
+                  fullWidth
                   name="subAccount"
                   label="Sub cuenta"
                   variant="outlined"
                   value={subAccount}
-                  onChange={handleChange}
+                  onChange={handleChangeAccount}
                 />
+                <Button onClick={() => handleDeleteAccount("subAccount")}>
+                  <DeleteOutlineIcon />
+                </Button>
               </FormControl>
               <FormControl style={{ width: "48%" }}>
                 <TextField
-                  //   required
+                  required
                   name="subAccountName"
                   label="Nombre sub cuenta"
                   variant="outlined"
@@ -153,7 +169,7 @@ const Content = ({ state, handleSubmit, handleChange, err, message }) => {
             >
               <FormControl style={{ width: "28%" }}>
                 <TextField
-                  //   required
+                  required
                   type="number"
                   name="exchangeRate"
                   label="Tasa de cambio"
@@ -164,7 +180,7 @@ const Content = ({ state, handleSubmit, handleChange, err, message }) => {
               </FormControl>
               <FormControl style={{ width: "68%" }}>
                 <TextField
-                  //   required
+                  required
                   type="number"
                   name="orderReport"
                   label="Orden Reporte"
@@ -176,16 +192,7 @@ const Content = ({ state, handleSubmit, handleChange, err, message }) => {
             </div>
             {/* ========================================================================= */}
 
-            <div className="Expense__button">
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Crear Cuenta
-              </Button>
-            </div>
+            <SubmitButton loading={loading} text="Crear Cuenta" />
           </form>
           <div style={{ marginTop: "20px" }}>
             {message && (

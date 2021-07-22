@@ -3,28 +3,23 @@ import "./styles.css";
 // COMPONENTS
 import Menu from "../Menu/index";
 import Schedule from "../Schedule/index";
+import SubmitButton from "../SubmitButton/index";
+import { money, formatValue } from "../Money/index";
 // MATERIAL UI
-import {
-  Container,
-  CssBaseline,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  TextField,
-  Button,
-  FormHelperText,
-} from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-
+import { CssBaseline, FormControl } from "@material-ui/core";
+import { TextField, FormHelperText } from "@material-ui/core";
+import { InputLabel, Select, MenuItem, Container } from "@material-ui/core";
 //======================================================================
+
 const Content = ({
-  clients,
+  err,
   state,
+  loading,
+  clients,
+  message,
   handleChange,
   handleSubmit,
-  err,
-  message,
   // DATES
   createProject,
   handleCreateChange,
@@ -107,7 +102,7 @@ const Content = ({
                 required
                 type="number"
                 name="budget"
-                label="Presupuesto General (Colones)"
+                label={`Presupuesto General (Colones) ${formatValue(budget)}`}
                 variant="outlined"
                 style={{ marginTop: "20px" }}
                 value={budget}
@@ -125,36 +120,26 @@ const Content = ({
               >
                 <TextField
                   required
+                  fullWidth
                   type="number"
                   name="exchangeRate"
-                  label="Tasa de cambio"
                   variant="outlined"
+                  label={`Tasa de cambio ${formatValue(exchangeRate)}`}
                   style={{ marginRight: "30px" }}
-                  fullWidth
                   value={exchangeRate}
                   onChange={handleChange}
                 />
                 <TextField
+                  fullWidth
                   type="number"
                   name="dollars"
-                  label="Dólares"
+                  label={`Dólares ${money(budget * exchangeRate)}`}
                   variant="outlined"
-                  fullWidth
                   value={budget * exchangeRate}
                 />
               </div>
             </FormControl>
-
-            <div className="Scheme__button">
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Crear Proyecto
-              </Button>
-            </div>
+            <SubmitButton loading={loading} text="Crear Proyecto" />
           </form>
           <div style={{ marginTop: "20px" }}>
             {message && (

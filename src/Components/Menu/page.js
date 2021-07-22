@@ -1,68 +1,37 @@
-// MATERIAL UI
-import Drawer from "@material-ui/core/Drawer";
+// MATERIAL UI - ICONS
+import { IconButton, Typography, Drawer } from "@material-ui/core";
+import { AppBar, Toolbar, Button, Divider } from "@material-ui/core";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Button,
-  Divider,
-} from "@material-ui/core";
-//=========================================================
-// ICONS
 import MenuIcon from "@material-ui/icons/Menu";
-import RateReviewIcon from "@material-ui/icons/RateReview";
-import PersonAddIcon from "@material-ui/icons/PersonAdd";
-import GroupIcon from "@material-ui/icons/Group";
-import EuroSymbolIcon from "@material-ui/icons/EuroSymbol";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import GroupAddIcon from "@material-ui/icons/GroupAdd";
-import EditIcon from "@material-ui/icons/Edit";
-import { Typography } from "@material-ui/core";
-
-const icons = {
-  Proyecto: <RateReviewIcon color="primary" />,
-  Cliente: <PersonAddIcon color="primary" />,
-  Proveedor: <GroupIcon color="primary" />,
-  Gastos: <EuroSymbolIcon color="primary" />,
-  Catalogo: <AccountBalanceIcon color="primary" />,
-  Usuario: <GroupAddIcon color="primary" />,
-  Edit: <EditIcon color="primary" />,
-};
-
-const paths = {
-  Proyecto: "/scheme",
-  Cliente: "/client",
-  Proveedor: "/supplier",
-  Gastos: "/expense",
-  Catalogo: "/catalog",
-  Usuario: "/signup",
-  Edit: "/edit",
-};
+// UTILS
+import { entities, paths, icons } from "./utils";
 
 const Content = ({
-  handleRedirect,
+  title,
+  anchor,
   drawer,
   setDrawer,
-  title,
   handleLogout,
+  handleRedirect,
 }) => {
-  const nav = () => (
-    <Drawer anchor="left" open={drawer} onClose={() => setDrawer(false)}>
+  const Nav = () => (
+    <Drawer
+      anchor={anchor || "left"}
+      open={drawer}
+      onClose={() => setDrawer(false)}
+    >
       <div style={{ width: 220 }} role="presentation">
         <List>
-          {["Proyecto", "Cliente", "Proveedor", "Gastos", "Catalogo", "Usuario"].map(
-            (text) => (
-              <ListItem
-                button
-                onClick={() => handleRedirect(paths[text])}
-                key={text}
-              >
-                <ListItemIcon>{icons[text]}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            )
-          )}
+          {entities.map((text) => (
+            <ListItem
+              button
+              key={text}
+              onClick={() => handleRedirect(paths[text])}
+            >
+              <ListItemIcon>{icons[text]}</ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
           <Divider />
           <ListItem button onClick={() => handleRedirect(paths.Edit)}>
             <ListItemIcon>{icons.Edit}</ListItemIcon>
@@ -75,14 +44,14 @@ const Content = ({
 
   return (
     <>
-      {nav()}
+      {Nav()}
       <AppBar position="static">
         <Toolbar>
           <IconButton
-            onClick={() => setDrawer(!drawer)}
             edge="start"
             color="inherit"
             aria-label="menu"
+            onClick={() => setDrawer(!drawer)}
           >
             <MenuIcon />
           </IconButton>

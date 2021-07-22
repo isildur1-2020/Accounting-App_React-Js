@@ -144,7 +144,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
     }));
 
     setNewExpenses(newExpenses);
-  }, [expensesFound, projectReduce, supplierReduce]);
+  }, [expensesFound, projectReduce, supplierReduce, catalogReduce]);
 
   return (
     <div style={{ height: 400, width: "100%" }}>

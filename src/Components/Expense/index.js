@@ -1,19 +1,24 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Content from "./page";
 import moment from "moment";
 // AXIOS
 import axios from "axios";
 import { BASE_URL, headers } from "../../config/api";
+// HOOKS
+import { useProject } from "../../hooks/useProject";
+import { useSupplier } from "../../hooks/useSupplier";
+import { useCatalog } from "../../hooks/useCatalog";
 
 const Expense = () => {
   const refOrderFile = useRef();
   // ALERT
   const [err, setErr] = useState(false);
   const [message, setMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   // DATA
-  const [projects, setProjects] = useState([]);
-  const [suppliers, setSuppliers] = useState([]);
-  const [accounts, setAccounts] = useState([]);
+  const { projectsFound } = useProject();
+  const { suppliersFound } = useSupplier();
+  const { accountsFound } = useCatalog();
   // STATE
   const [fileSelected, setFileSelected] = useState(false);
   const [createDate, setCreateDate] = useState(new Date());
@@ -65,8 +70,11 @@ const Expense = () => {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    // VERIFICAR LOADING
+    if (loading) return;
     // ENVIAR FORMULARIO
     try {
+      setLoading(true);
       const info = {
         ...state,
         expenseDate: moment(createDate).unix(),
@@ -76,61 +84,27 @@ const Expense = () => {
       };
       const URL = `${BASE_URL}/expense`;
       const { data } = await axios.post(URL, info, { headers });
+      setLoading(false);
       const { errors } = data;
       if (errors?.length > 0) return setErr("Debes completar todos los campos");
       setMessage("Gasto creado con éxito");
       resetForm();
     } catch ({ message }) {
       console.log(message);
+      setLoading(false);
     }
   };
-
-  const getAllProjects = async () => {
-    try {
-      const URL = `${BASE_URL}/project`;
-      const { data } = await axios.get(URL, { headers });
-      setProjects(data.projectsFound);
-    } catch ({ message }) {
-      console.log(message);
-    }
-  };
-
-  const getAllSuppliers = async () => {
-    try {
-      const URL = `${BASE_URL}/supplier`;
-      const { data } = await axios.get(URL, { headers });
-      setSuppliers(data.suppliersFound);
-    } catch ({ message }) {
-      console.log(message);
-    }
-  };
-
-  const getAllCatalog = async () => {
-    try {
-      const URL = `${BASE_URL}/catalog`;
-      const { data } = await axios.get(URL, { headers });
-      console.log(data.accountsFound);
-      setAccounts(data.accountsFound);
-    } catch ({ message }) {
-      console.log(message);
-    }
-  };
-
-  useEffect(() => {
-    getAllProjects();
-    getAllSuppliers();
-    getAllCatalog();
-  }, []);
 
   return (
     <Content
       state={state}
+      loading={loading}
       handleChange={handleChange}
       handleSubmit={handleSubmit}
       // DATA
-      projects={projects}
-      suppliers={suppliers}
-      accounts={accounts}
+      projects={projectsFound}
+      suppliers={suppliersFound}
+      accounts={accountsFound}
       err={err}
       message={message}
       refOrderFile={refOrderFile}

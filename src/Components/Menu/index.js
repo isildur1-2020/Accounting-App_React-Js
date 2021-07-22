@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { logoutAction } from "../../redux/actions/authAction";
 import { useDispatch } from "react-redux";
 
-const Menu = ({ title }) => {
+const Menu = ({ title, anchor }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [drawer, setDrawer] = useState(false);
@@ -19,11 +19,12 @@ const Menu = ({ title }) => {
 
   return (
     <Content
-      handleRedirect={handleRedirect}
+      title={title}
+      anchor={anchor}
       drawer={drawer}
       setDrawer={setDrawer}
-      title={title}
       handleLogout={handleLogout}
+      handleRedirect={handleRedirect}
     />
   );
 };
