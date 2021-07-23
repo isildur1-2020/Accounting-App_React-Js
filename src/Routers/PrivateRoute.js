@@ -2,27 +2,23 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Route, Redirect } from "react-router-dom";
 // AXIOS
-import axios from "axios";
-import { token, headers, BASE_URL } from "../config/api";
+import { axiosInstance } from "../config/api";
 // REDUX
+import { useDispatch } from "react-redux";
 import { authAction } from "../redux/actions/authAction";
-import { useSelector, useDispatch } from "react-redux";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const isAuth = async () => {
-    try {
-      if (!isAuthenticated) {
-        if (token) {
-          const URL = `${BASE_URL}/auth`;
-          const { data } = await axios.post(URL, null, { headers });
-          if (data.isAllowed) dispatch(authAction());
-        }
+    const token = localStorage.getItem("token");
+    if (!isAuthenticated && token) {
+      try {
+        const { data } = await axiosInstance.post("/auth");
+        if (data.isAllowed) dispatch(authAction());
+      } catch ({ message }) {
+        console.log(message);
       }
-    } catch ({ message }) {
-      console.log(message);
     }
   };
 

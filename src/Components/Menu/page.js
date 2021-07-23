@@ -8,18 +8,13 @@ import { entities, paths, icons } from "./utils";
 
 const Content = ({
   title,
-  anchor,
   drawer,
   setDrawer,
   handleLogout,
   handleRedirect,
 }) => {
   const Nav = () => (
-    <Drawer
-      anchor={anchor || "left"}
-      open={drawer}
-      onClose={() => setDrawer(false)}
-    >
+    <Drawer anchor="left" open={drawer} onClose={() => setDrawer(false)}>
       <div style={{ width: 220 }} role="presentation">
         <List>
           {entities.map((text) => (

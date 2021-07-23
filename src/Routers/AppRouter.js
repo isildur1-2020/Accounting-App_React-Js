@@ -1,13 +1,13 @@
 import React from "react";
-import { BrowserRouter, HashRouter, Switch, Redirect } from "react-router-dom";
+import { HashRouter, Switch, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 // COMPONENTS
 import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
-// ======================================
+// ================================================
 import Login from "../Components/Login/index";
 import Signup from "../Components/Signup/index";
-import Home from '../Components/Home/index'
+import Home from "../Components/Home/index";
 import Scheme from "../Components/Scheme/index";
 import Supplier from "../Components/Supplier/index";
 import Client from "../Components/Client/index";

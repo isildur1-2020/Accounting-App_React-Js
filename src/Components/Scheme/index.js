@@ -22,7 +22,7 @@ const Scheme = () => {
     projectName: "",
     client: "",
     budget: "",
-    exchangeRate: "",
+    exchangeRate: 0,
   });
 
   // =============================================================

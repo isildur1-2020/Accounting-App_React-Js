@@ -8,7 +8,7 @@ import background from "../../images/background.jpg";
 const Home = () => {
   return (
     <div className="Home">
-      <Menu title="Inicio" anchor="right" />
+      <Menu title="Inicio" />
       <img src={background} loading="lazy" alt="building" />
     </div>
   );
