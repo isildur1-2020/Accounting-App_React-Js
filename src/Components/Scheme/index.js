@@ -62,7 +62,7 @@ const Scheme = () => {
     const { exchangeRate, budget } = state;
     const body = {
       ...state,
-      dollars: exchangeRate * budget,
+      dollars: exchangeRate / budget,
       createProject: moment(createProject).unix(),
       initDate: moment(initDate).unix(),
       endDate: moment(endDate).unix(),

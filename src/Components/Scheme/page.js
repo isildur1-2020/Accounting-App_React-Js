@@ -135,7 +135,7 @@ const Content = ({
                   name="dollars"
                   label={`Dólares ${money(budget * exchangeRate)}`}
                   variant="outlined"
-                  value={budget * exchangeRate}
+                  value={(budget / exchangeRate).toFixed(2)}
                 />
               </div>
             </FormControl>
