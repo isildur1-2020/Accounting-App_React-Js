@@ -5,10 +5,13 @@ import { axiosPreInstance } from "../../config/api";
 import { useProject } from "../../hooks/useProject";
 import { useSupplier } from "../../hooks/useSupplier";
 import { useCatalog } from "../../hooks/useCatalog";
+import { getUser } from "../../utils/getUser";
 
 const Expense = () => {
     const token = localStorage.getItem("token");
     const axiosInstance = axiosPreInstance(token);
+    const modifierUser = getUser(token);
+
     const refOrderFile = useRef();
     // ALERT
     const [err, setErr] = useState(false);
@@ -28,6 +31,7 @@ const Expense = () => {
         description: "",
         expenseCatalog: "",
         totalExpense: "",
+        modifierUser,
     });
 
     const handleCreateChange = (date) => setCreateDate(date);

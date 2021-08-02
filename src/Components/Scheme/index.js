@@ -3,10 +3,12 @@ import Content from "./page";
 import moment from "moment";
 import { axiosPreInstance } from "../../config/api";
 import { useClient } from "../../hooks/useClient";
+import { getUser } from "../../utils/getUser";
 
 const Scheme = () => {
     const token = localStorage.getItem("token");
     const axiosInstance = axiosPreInstance(token);
+    const modifierUser = getUser(token);
     // ALERT
     const [err, setErr] = useState(false);
     const [message, setMessage] = useState(false);
@@ -22,6 +24,7 @@ const Scheme = () => {
         client: "",
         budget: "",
         exchangeRate: 0,
+        modifierUser,
     });
 
     // =============================================================

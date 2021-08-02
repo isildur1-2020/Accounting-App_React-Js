@@ -65,11 +65,11 @@ const Content = ({
                                     <MenuItem value="">
                                         <em>Seleccionar</em>
                                     </MenuItem>
-                                    <MenuItem value="cedula">Cédula</MenuItem>
-                                    <MenuItem value="pasaporte">
+                                    <MenuItem value="Cédula">Cédula</MenuItem>
+                                    <MenuItem value="Pasaporte">
                                         Pasaporte
                                     </MenuItem>
-                                    <MenuItem value="cedula juridica">
+                                    <MenuItem value="Cédula Jurídica">
                                         Cédula Jurídica
                                     </MenuItem>
                                 </Select>

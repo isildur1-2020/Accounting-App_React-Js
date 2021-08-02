@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Content from "./page";
 import { axiosPreInstance } from "../../config/api";
+import { getUser } from "../../utils/getUser";
 
 const Catalog = () => {
     const token = localStorage.getItem("token");
     const axiosInstance = axiosPreInstance(token);
+    const modifierUser = getUser(token);
     // STATE
     const [err, setErr] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -20,6 +22,7 @@ const Catalog = () => {
         creditDollars: 0,
         exchangeRate: 0,
         orderReport: "",
+        modifierUser,
     });
 
     const resetForm = () => {
