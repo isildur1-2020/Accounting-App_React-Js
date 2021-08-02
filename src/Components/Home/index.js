@@ -1,17 +1,14 @@
 import React from "react";
 import "./styles.css";
-// COMPONENTS
 import Menu from "../Menu/index";
-// IMAGES
 import background from "../../images/background.jpg";
 
-const Home = () => {
-  return (
+const Home = () => (
     <div className="Home">
-      <Menu title="Inicio" />
-      <img src={background} loading="lazy" alt="building" />
+        <Menu title="Inicio" />
+        {/* <img src={background} loading="lazy" alt="building" /> */}
+        <img src={background} loading="lazy" />
     </div>
-  );
-};
+);
 
 export default Home;

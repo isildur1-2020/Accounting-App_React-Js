@@ -27,7 +27,7 @@ const Edit = () => {
     const handleDelete = async () => {
         const promises = [];
         selectedRows.forEach((el) => {
-            const promise = axiosInstance.delete(`/${el}`);
+            const promise = axiosInstance.delete(`/${option}/${el}`);
             promises.push(promise);
         });
 
