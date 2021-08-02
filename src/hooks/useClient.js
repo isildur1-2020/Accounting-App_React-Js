@@ -1,34 +1,33 @@
 import { useState, useEffect } from "react";
-// AXIOS
-import axios from "axios";
-import { BASE_URL, headers } from "../config/api";
+import { axiosPreInstance } from "../config/api";
 
 export const useClient = (loading) => {
-  // STATE
-  const [state, setState] = useState({
-    loading: true,
-    clientsFound: [],
-  });
+    const token = localStorage.getItem("token");
+    const axiosInstance = axiosPreInstance(token);
+    // STATE
+    const [state, setState] = useState({
+        loading: true,
+        clientsFound: [],
+    });
 
-  const getAllClients = async () => {
-    const URL = `${BASE_URL}/client`;
-    try {
-      const { data } = await axios.get(URL, { headers });
-      const { clientsFound } = data;
+    const getAllClients = async () => {
+        try {
+            const { data } = await axiosInstance.get("/client");
+            const { clientsFound } = data;
 
-      if (clientsFound)
-        setState({
-          ...state,
-          clientsFound,
-        });
-    } catch ({ message }) {
-      console.log(message);
-    }
-  };
+            if (clientsFound)
+                setState({
+                    ...state,
+                    clientsFound,
+                });
+        } catch ({ message }) {
+            console.log(message);
+        }
+    };
 
-  useEffect(() => {
-    getAllClients();
-  }, [loading]);
+    useEffect(() => {
+        getAllClients();
+    }, [loading]);
 
-  return state;
+    return state;
 };

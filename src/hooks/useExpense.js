@@ -1,34 +1,33 @@
 import { useState, useEffect } from "react";
-// AXIOS
-import axios from "axios";
-import { BASE_URL, headers } from "../config/api";
+import { axiosPreInstance } from "../config/api";
 
 export const useExpense = (loading) => {
-  // STATE
-  const [state, setState] = useState({
-    loading: true,
-    expensesFound: [],
-  });
+    const token = localStorage.getItem("token");
+    const axiosInstance = axiosPreInstance(token);
+    // STATE
+    const [state, setState] = useState({
+        loading: true,
+        expensesFound: [],
+    });
 
-  const getAllExpenses = async () => {
-    try {
-      const URL = `${BASE_URL}/expense`;
-      const { data } = await axios.get(URL, { headers });
-      const { expensesFound } = data;
+    const getAllExpenses = async () => {
+        try {
+            const { data } = await axiosInstance.get("/expense");
+            const { expensesFound } = data;
 
-      if (expensesFound)
-        setState({
-          loading: true,
-          expensesFound,
-        });
-    } catch ({ message }) {
-      console.log(message);
-    }
-  };
+            if (expensesFound)
+                setState({
+                    loading: true,
+                    expensesFound,
+                });
+        } catch ({ message }) {
+            console.log(message);
+        }
+    };
 
-  useEffect(() => {
-    getAllExpenses();
-  }, [loading]);
+    useEffect(() => {
+        getAllExpenses();
+    }, [loading]);
 
-  return state;
+    return state;
 };
