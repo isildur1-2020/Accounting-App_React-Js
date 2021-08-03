@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Content from "./page";
 import moment from "moment";
 import { axiosPreInstance } from "../../config/api";
@@ -9,6 +10,8 @@ const Scheme = () => {
     const token = localStorage.getItem("token");
     const axiosInstance = axiosPreInstance(token);
     const modifierUser = getUser(token);
+
+    const { exchangeRate } = useSelector(({ exchangeRate }) => exchangeRate);
     // ALERT
     const [err, setErr] = useState(false);
     const [message, setMessage] = useState(false);
@@ -23,7 +26,6 @@ const Scheme = () => {
         projectName: "",
         client: "",
         budget: "",
-        exchangeRate: 0,
         modifierUser,
     });
 
@@ -45,7 +47,6 @@ const Scheme = () => {
             projectName: "",
             client: "",
             budget: "",
-            exchangeRate: "",
         });
         setCreateDate(newDate);
         setInitDate(newDate);
@@ -59,10 +60,10 @@ const Scheme = () => {
     const handleSubmit = async (ev) => {
         ev.preventDefault();
         // ENVIAR FORMULARIO
-        const { exchangeRate, budget } = state;
+        const { budget } = state;
         const body = {
             ...state,
-            dollars: exchangeRate / budget,
+            dollars: exchangeRate * budget,
             createProject: moment(createProject).unix(),
             initDate: moment(initDate).unix(),
             endDate: moment(endDate).unix(),
@@ -91,6 +92,7 @@ const Scheme = () => {
             clients={clientsFound}
             message={message}
             loading={loading}
+            exchangeRate={exchangeRate}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
             // DATES

@@ -3,28 +3,30 @@ import Content from "./page";
 import { useHistory } from "react-router-dom";
 // REDUX
 import { logoutAction } from "../../redux/actions/authAction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Menu = ({ title }) => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const [drawer, setDrawer] = useState(false);
+    const { exchangeRate } = useSelector(({ exchangeRate }) => exchangeRate);
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const [drawer, setDrawer] = useState(false);
 
-  const handleRedirect = (path) => history.push(path);
+    const handleRedirect = (path) => history.push(path);
 
-  const handleLogout = () => {
-    window.localStorage.removeItem("token");
-    dispatch(logoutAction());
-  };
+    const handleLogout = () => {
+        window.localStorage.removeItem("token");
+        dispatch(logoutAction());
+    };
 
-  return (
-    <Content
-      title={title}
-      drawer={drawer}
-      setDrawer={setDrawer}
-      handleLogout={handleLogout}
-      handleRedirect={handleRedirect}
-    />
-  );
+    return (
+        <Content
+            title={title}
+            drawer={drawer}
+            setDrawer={setDrawer}
+            exchangeRate={exchangeRate}
+            handleLogout={handleLogout}
+            handleRedirect={handleRedirect}
+        />
+    );
 };
 export default Menu;

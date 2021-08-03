@@ -18,6 +18,7 @@ const Content = ({
     loading,
     clients,
     message,
+    exchangeRate,
     handleChange,
     handleSubmit,
     // DATES
@@ -30,7 +31,7 @@ const Content = ({
     endDate,
     handleEndChange,
 }) => {
-    const { projectName, client, budget, exchangeRate } = state;
+    const { projectName, client, budget } = state;
     return (
         <>
             <Menu title="Crear Proyecto" />
@@ -109,42 +110,25 @@ const Content = ({
                             </div>
                         </FormControl>
 
-                        <FormControl fullWidth>
-                            <TextField
-                                required
-                                type="number"
-                                name="budget"
-                                label={`Presupuesto General (Colones) ${formatValue(
-                                    budget
-                                )}`}
-                                variant="outlined"
-                                style={{ marginTop: "20px" }}
-                                value={budget}
-                                onChange={handleChange}
-                            />
-                        </FormControl>
-
-                        <FormControl fullWidth>
-                            <div
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    marginTop: "20px",
-                                }}
-                            >
+                        <div
+                            className="horizontal-separate"
+                            style={{ alignItems: "flex-end" }}
+                        >
+                            <FormControl style={{ width: "58%" }}>
                                 <TextField
                                     required
-                                    fullWidth
                                     type="number"
-                                    name="exchangeRate"
-                                    variant="outlined"
-                                    label={`Tasa de cambio ${formatValue(
-                                        exchangeRate
+                                    name="budget"
+                                    label={`Presupuesto General (Colones) ${formatValue(
+                                        budget
                                     )}`}
-                                    style={{ marginRight: "30px" }}
-                                    value={exchangeRate}
+                                    variant="outlined"
+                                    style={{ marginTop: "20px" }}
+                                    value={budget}
                                     onChange={handleChange}
                                 />
+                            </FormControl>
+                            <FormControl style={{ width: "38%" }}>
                                 <TextField
                                     fullWidth
                                     type="number"
@@ -153,10 +137,10 @@ const Content = ({
                                         budget * exchangeRate
                                     )}`}
                                     variant="outlined"
-                                    value={(budget / exchangeRate).toFixed(2)}
+                                    value={(budget * exchangeRate).toFixed(2)}
                                 />
-                            </div>
-                        </FormControl>
+                            </FormControl>
+                        </div>
                         <SubmitButton loading={loading} text="Crear Proyecto" />
                     </form>
                     <div style={{ marginTop: "20px" }}>

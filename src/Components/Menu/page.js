@@ -11,6 +11,7 @@ const Content = ({
     drawer,
     setDrawer,
     handleLogout,
+    exchangeRate,
     handleRedirect,
 }) => {
     const Nav = () => (
@@ -61,6 +62,7 @@ const Content = ({
                         >
                             {title}
                         </Typography>
+                        <span>Tasa de cambio: {exchangeRate}</span>
                         <Button onClick={handleLogout} variant="outlined">
                             Cerrar Sesión
                         </Button>
