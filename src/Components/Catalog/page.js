@@ -21,6 +21,7 @@ const Content = ({
     state,
     loading,
     message,
+    exchangeRate,
     handleSubmit,
     handleChange,
     handleChangeAccount,
@@ -33,9 +34,6 @@ const Content = ({
         subAccountName,
         debitColones,
         creditColones,
-        debitDollars,
-        creditDollars,
-        exchangeRate,
         orderReport,
     } = state;
 
@@ -161,23 +159,23 @@ const Content = ({
                                 <FormControl style={{ width: "48%" }}>
                                     <TextField
                                         required
-                                        type="number"
                                         name="debitDollars"
                                         label="Débito Dólares"
                                         variant="outlined"
-                                        value={debitDollars}
-                                        onChange={handleChange}
+                                        value={(
+                                            debitColones * exchangeRate
+                                        ).toFixed(2)}
                                     />
                                 </FormControl>
                                 <FormControl style={{ width: "48%" }}>
                                     <TextField
                                         required
-                                        type="number"
                                         name="creditDollars"
                                         label="Crédito Dólares"
                                         variant="outlined"
-                                        value={creditDollars}
-                                        onChange={handleChange}
+                                        value={(
+                                            creditColones * exchangeRate
+                                        ).toFixed(2)}
                                     />
                                 </FormControl>
                             </div>

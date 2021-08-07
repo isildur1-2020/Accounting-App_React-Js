@@ -58,7 +58,7 @@ const Content = ({
                                 required
                                 type="password"
                                 name="secret"
-                                label="Verificación"
+                                label="Contraseña - Administrador"
                                 variant="outlined"
                                 value={secret}
                                 onChange={handleChange}

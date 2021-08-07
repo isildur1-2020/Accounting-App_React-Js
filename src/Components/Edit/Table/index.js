@@ -8,6 +8,7 @@ import {
     supplierColumn,
     expenseColumn,
     catalogColumn,
+    earningColumn,
 } from "./column";
 // HOOKS
 import { useProject } from "../../../hooks/useProject";
@@ -15,11 +16,13 @@ import { useClient } from "../../../hooks/useClient";
 import { useSupplier } from "../../../hooks/useSupplier";
 import { useExpense } from "../../../hooks/useExpense";
 import { useCatalog } from "../../../hooks/useCatalog";
+import { useEarning } from "../../../hooks/useEarning";
 
 const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
     // STATE
     const [newProjects, setNewProjects] = useState([]);
     const [newExpenses, setNewExpenses] = useState([]);
+    const [newEarnings, setNewEarnings] = useState([]);
 
     const [projectReduce, setProjectReduce] = useState({});
     const [clientReduce, setClientReduce] = useState({});
@@ -31,6 +34,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
     const { suppliersFound } = useSupplier(loading);
     const { expensesFound } = useExpense(loading);
     const { accountsFound } = useCatalog(loading);
+    const { earningsFound } = useEarning(loading);
 
     const data = {
         // MODIFICADO (PROJECTS)
@@ -40,6 +44,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
         // MODIFICADO (EXPENSES)
         expense: newExpenses,
         catalog: accountsFound,
+        earning: newEarnings,
     };
 
     const columns = {
@@ -48,6 +53,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
         supplier: supplierColumn,
         expense: expenseColumn,
         catalog: catalogColumn,
+        earning: earningColumn,
     };
 
     const unixToDate = (unixTime) => moment.unix(unixTime).format("DD-MM-YYYY");
@@ -145,6 +151,20 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
 
         setNewExpenses(newExpenses);
     }, [expensesFound, projectReduce, supplierReduce, catalogReduce]);
+
+    //========================================================================
+
+    useEffect(() => {
+        // CREAMOS LA INFORMACIÓN DE INGRESOS CON INFORMACIÓN COMPLETA
+        const newEarnings = earningsFound.map((el) => ({
+            ...el,
+            date: unixToDate(el.date),
+            project: projectReduce[el.project]?.projectName,
+            catalog: catalogReduce[el.catalog]?.subAccountName,
+        }));
+
+        setNewEarnings(newEarnings);
+    }, [earningsFound, projectReduce, catalogReduce]);
 
     return (
         <div style={{ height: 400, width: "100%" }}>

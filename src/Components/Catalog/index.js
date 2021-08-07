@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import Content from "./page";
 import { axiosPreInstance } from "../../config/api";
 import { getUser } from "../../utils/getUser";
+import { useSelector } from "react-redux";
 
 const Catalog = () => {
     const token = localStorage.getItem("token");
     const axiosInstance = axiosPreInstance(token);
     const modifierUser = getUser(token);
+
+    const { exchangeRate } = useSelector(({ exchangeRate }) => exchangeRate);
     // STATE
     const [err, setErr] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -18,9 +21,7 @@ const Catalog = () => {
         subAccountName: "",
         debitColones: 0,
         creditColones: 0,
-        debitDollars: 0,
-        creditDollars: 0,
-        exchangeRate: 0,
+        exchangeRate,
         orderReport: "",
         modifierUser,
     });
@@ -33,9 +34,6 @@ const Catalog = () => {
             subAccountName: "",
             debitColones: 0,
             creditColones: 0,
-            debitDollars: 0,
-            creditDollars: 0,
-            exchangeRate: 0,
             orderReport: "",
         });
 
@@ -58,7 +56,13 @@ const Catalog = () => {
         // ENVIAR FORMULARIO
         try {
             setLoading(true);
-            const { data } = await axiosInstance.post("/catalog", state);
+            const { debitColones, creditColones } = state;
+            const body = {
+                ...state,
+                debitDollars: debitColones * exchangeRate,
+                creditDollars: creditColones * exchangeRate,
+            };
+            const { data } = await axiosInstance.post("/catalog", body);
             setLoading(false);
             const { errors } = data;
             if (errors?.length > 0) return setErr("Completa todos los campos");
@@ -100,6 +104,7 @@ const Catalog = () => {
             state={state}
             loading={loading}
             message={message}
+            exchangeRate={exchangeRate}
             handleSubmit={handleSubmit}
             handleChange={handleChange}
             handleChangeAccount={handleChangeAccount}

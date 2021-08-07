@@ -9,6 +9,7 @@ const titles = {
     supplier: "Editar proveedores",
     expense: "Editar gastos",
     catalog: "Editar Cuentas",
+    earning: "Editar ingresos",
 };
 
 const Edit = () => {
@@ -19,7 +20,7 @@ const Edit = () => {
     const [option, setOption] = useState("");
     const [selectedRows, setSelectedRows] = useState([]);
 
-    const handleChange = (ev) => setOption(ev.target.value);
+    const handleChange = ({ target }) => setOption(target.value);
 
     const handleSelectedRows = ({ selectionModel }) =>
         setSelectedRows(selectionModel);

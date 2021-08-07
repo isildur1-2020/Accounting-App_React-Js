@@ -16,6 +16,7 @@ import Supplier from "../Components/Supplier/index";
 import Client from "../Components/Client/index";
 import Expense from "../Components/Expense/index";
 import Catalog from "../Components/Catalog/index";
+import Earning from "../Components/Earning/index";
 import Edit from "../Components/Edit/index";
 
 export const AppRouter = () => {
@@ -92,6 +93,12 @@ export const AppRouter = () => {
                     exact
                     path="/edit"
                     component={Edit}
+                    isAuthenticated={isAuthenticated}
+                />
+                <PrivateRoute
+                    exact
+                    path="/earning"
+                    component={Earning}
                     isAuthenticated={isAuthenticated}
                 />
                 <Redirect to="/login" />
