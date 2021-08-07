@@ -3,6 +3,7 @@ import { IconButton, Typography, Drawer } from "@material-ui/core";
 import { AppBar, Toolbar, Button, Divider } from "@material-ui/core";
 import { List, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import EditExchangeRate from "../EditExchangeRate/index";
 // UTILS
 import { entities, paths, icons } from "./utils";
 
@@ -62,7 +63,13 @@ const Content = ({
                         >
                             {title}
                         </Typography>
-                        <span>Tasa de cambio: {exchangeRate}</span>
+                        <span
+                            className="horizontal-separate"
+                            style={{ width: 330, alignItems: "center" }}
+                        >
+                            Tasa de cambio: {exchangeRate}
+                            <EditExchangeRate />
+                        </span>
                         <Button onClick={handleLogout} variant="outlined">
                             Cerrar Sesión
                         </Button>
