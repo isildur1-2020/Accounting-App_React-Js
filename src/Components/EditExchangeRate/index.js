@@ -39,22 +39,13 @@ const EditExchangeRate = () => {
             >
                 <DialogTitle id="form-dialog-title">Tasa de cambio</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        <span>
-                            Escribe la tasa de cambio que deseas utilizar
-                        </span>
-                        <br />
-                        <span>Por ejemplo; 0.0016.</span>
-                        <br />
-                        <span>Es decir: 1 colón equivale a 0.0016 dólares</span>
-                    </DialogContentText>
                     <TextField
                         fullWidth
                         autoFocus
                         id="name"
                         type="number"
                         margin="normal"
-                        label="Tasa de cambio personalizada"
+                        label="Tasa de cambio"
                         value={rateCustomize}
                         onChange={handleChange}
                     />
