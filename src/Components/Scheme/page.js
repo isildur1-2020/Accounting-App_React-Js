@@ -114,7 +114,7 @@ const Content = ({
                             className="horizontal-separate"
                             style={{ alignItems: "flex-end" }}
                         >
-                            <FormControl style={{ width: "58%" }}>
+                            <FormControl style={{ width: "68%" }}>
                                 <TextField
                                     required
                                     type="number"
@@ -128,16 +128,16 @@ const Content = ({
                                     onChange={handleChange}
                                 />
                             </FormControl>
-                            <FormControl style={{ width: "38%" }}>
+                            <FormControl style={{ width: "28%" }}>
                                 <TextField
                                     fullWidth
                                     type="number"
                                     name="dollars"
                                     label={`Dólares ${money(
-                                        budget * exchangeRate
+                                        budget / exchangeRate
                                     )}`}
                                     variant="outlined"
-                                    value={(budget * exchangeRate).toFixed(2)}
+                                    value={(budget / exchangeRate).toFixed(2)}
                                 />
                             </FormControl>
                         </div>

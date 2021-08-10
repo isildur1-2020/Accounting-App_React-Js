@@ -59,8 +59,8 @@ const Catalog = () => {
             const { debitColones, creditColones } = state;
             const body = {
                 ...state,
-                debitDollars: debitColones * exchangeRate,
-                creditDollars: creditColones * exchangeRate,
+                debitDollars: debitColones / exchangeRate,
+                creditDollars: creditColones / exchangeRate,
             };
             const { data } = await axiosInstance.post("/catalog", body);
             setLoading(false);

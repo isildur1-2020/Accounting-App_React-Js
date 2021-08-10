@@ -85,7 +85,7 @@ const Content = ({
                         </div>
                         {/* =============================================================================== */}
                         <div style={horizontalSeparate}>
-                            <FormControl style={{ width: "48%" }}>
+                            <FormControl style={{ width: "28%" }}>
                                 <InputLabel id="typeOfAdvance-label">
                                     Tipo de adelanto
                                 </InputLabel>
@@ -116,7 +116,7 @@ const Content = ({
                                     Seleccione un tipo de adelanto
                                 </FormHelperText>
                             </FormControl>
-                            <FormControl style={{ width: "22%" }}>
+                            <FormControl style={{ width: "32%" }}>
                                 <TextField
                                     required
                                     type="number"
@@ -129,16 +129,16 @@ const Content = ({
                                     onChange={handleChange}
                                 />
                             </FormControl>
-                            <FormControl style={{ width: "22%" }}>
+                            <FormControl style={{ width: "32%" }}>
                                 <TextField
                                     required
                                     name="dollarsValue"
                                     label={`Dólares ${formatValue(
-                                        exchangeRate * colonesValue
+                                        colonesValue / exchangeRate
                                     )}`}
                                     variant="outlined"
                                     value={(
-                                        exchangeRate * colonesValue
+                                        colonesValue / exchangeRate
                                     ).toFixed(2)}
                                 />
                             </FormControl>

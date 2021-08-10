@@ -65,7 +65,7 @@ const Earning = () => {
         const body = {
             ...state,
             date: moment(selectedDate).unix(),
-            dollarsValue: exchangeRate * colonesValue,
+            dollarsValue: colonesValue / exchangeRate,
             modifierUser,
         };
         // SEND

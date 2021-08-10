@@ -7,7 +7,6 @@ const Home = () => (
     <div className="Home">
         <Menu title="Inicio" />
         {/* <img src={background} loading="lazy" alt="building" /> */}
-        <img src={background} loading="lazy" />
     </div>
 );
 

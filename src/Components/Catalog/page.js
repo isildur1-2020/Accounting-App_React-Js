@@ -163,7 +163,7 @@ const Content = ({
                                         label="Débito Dólares"
                                         variant="outlined"
                                         value={(
-                                            debitColones * exchangeRate
+                                            debitColones / exchangeRate
                                         ).toFixed(2)}
                                     />
                                 </FormControl>
@@ -174,7 +174,7 @@ const Content = ({
                                         label="Crédito Dólares"
                                         variant="outlined"
                                         value={(
-                                            creditColones * exchangeRate
+                                            creditColones / exchangeRate
                                         ).toFixed(2)}
                                     />
                                 </FormControl>
