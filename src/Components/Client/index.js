@@ -40,6 +40,7 @@ const Client = () => {
             phone: "",
             lastName: "",
             description: "",
+            modifierUser,
         });
         setTimeout(() => {
             setMessage(false);

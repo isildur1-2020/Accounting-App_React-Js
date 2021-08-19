@@ -15,12 +15,10 @@ const Catalog = () => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState(false);
     const [state, setState] = useState({
-        mayorAccount: "",
-        mayorAccountName: "",
-        subAccount: "",
-        subAccountName: "",
-        debitColones: 0,
-        creditColones: 0,
+        accountNumber: "",
+        accountName: "",
+        debitColones: "",
+        creditColones: "",
         exchangeRate,
         orderReport: "",
         modifierUser,
@@ -28,13 +26,13 @@ const Catalog = () => {
 
     const resetForm = () => {
         setState({
-            mayorAccount: "",
-            mayorAccountName: "",
-            subAccount: "",
-            subAccountName: "",
-            debitColones: 0,
-            creditColones: 0,
+            accountNumber: "",
+            accountName: "",
+            debitColones: "",
+            creditColones: "",
             orderReport: "",
+            exchangeRate,
+            modifierUser,
         });
 
         setTimeout(() => {
@@ -52,6 +50,7 @@ const Catalog = () => {
     };
 
     const handleSubmit = async (ev) => {
+        console.log(state);
         ev.preventDefault();
         // ENVIAR FORMULARIO
         try {
@@ -65,6 +64,7 @@ const Catalog = () => {
             const { data } = await axiosInstance.post("/catalog", body);
             setLoading(false);
             const { errors } = data;
+            console.log(errors);
             if (errors?.length > 0) return setErr("Completa todos los campos");
             setMessage(data?.message);
             resetForm();
@@ -81,8 +81,8 @@ const Catalog = () => {
         let account = [...value];
         const cardinal = account.length;
 
-        if (cardinal > 9) return;
-        else if (cardinal === 4 || cardinal === 7) {
+        if (cardinal > 12) return;
+        else if (cardinal === 4 || cardinal === 7 || cardinal === 10) {
             const lastPos = account.length - 1;
             const aux = account[lastPos];
             account[lastPos] = "-";

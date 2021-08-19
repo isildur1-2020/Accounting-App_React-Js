@@ -47,6 +47,7 @@ const Scheme = () => {
             projectName: "",
             client: "",
             budget: "",
+            modifierUser,
         });
         setCreateDate(newDate);
         setInitDate(newDate);

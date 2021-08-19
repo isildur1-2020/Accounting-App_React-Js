@@ -40,6 +40,7 @@ const Client = () => {
             lastName: "",
             phone: "",
             description: "",
+            modifierUser,
         });
 
         setTimeout(() => {

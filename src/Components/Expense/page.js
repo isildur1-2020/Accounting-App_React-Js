@@ -35,6 +35,7 @@ const Content = ({
         description,
         expenseCatalog,
         totalExpense,
+        typeOfPayment,
     } = state;
     return (
         <>
@@ -136,14 +137,29 @@ const Content = ({
                             style={{ alignItems: "flex-end" }}
                         >
                             <FormControl style={{ width: "48%" }}>
-                                <TextField
-                                    name="description"
-                                    label="Tipo de trabajo (descripción)"
-                                    variant="outlined"
-                                    style={{ marginTop: "25px" }}
-                                    value={description}
+                                <InputLabel id="typeOfPayment-label">
+                                    Método de pago
+                                </InputLabel>
+                                <Select
+                                    required
+                                    labelId="typeOfPayment-label"
+                                    name="typeOfPayment"
+                                    value={typeOfPayment}
                                     onChange={handleChange}
-                                />
+                                >
+                                    <MenuItem value="">
+                                        <em>Seleccionar</em>
+                                    </MenuItem>
+                                    <MenuItem value="Contado">
+                                        <em>Contado</em>
+                                    </MenuItem>
+                                    <MenuItem value="Crédito">
+                                        <em>Crédito</em>
+                                    </MenuItem>
+                                </Select>
+                                <FormHelperText>
+                                    Seleccione un método de pago
+                                </FormHelperText>
                             </FormControl>
                             <FormControl style={{ width: "48%" }}>
                                 <InputLabel id="expense-label">
@@ -160,13 +176,11 @@ const Content = ({
                                         <em>Seleccionar</em>
                                     </MenuItem>
                                     {accounts &&
-                                        accounts.map(
-                                            ({ id, subAccountName }) => (
-                                                <MenuItem key={id} value={id}>
-                                                    {subAccountName}
-                                                </MenuItem>
-                                            )
-                                        )}
+                                        accounts.map(({ id, accountName }) => (
+                                            <MenuItem key={id} value={id}>
+                                                {accountName}
+                                            </MenuItem>
+                                        ))}
                                 </Select>
                                 <FormHelperText>
                                     Seleccione un gasto
@@ -215,6 +229,18 @@ const Content = ({
                                 </Button>
                             </div>
                         </FormControl>
+                        {/* ========================================================================= */}
+                        <FormControl fullWidth>
+                            <TextField
+                                name="description"
+                                label="Tipo de trabajo (descripción)"
+                                variant="outlined"
+                                style={{ marginTop: "25px" }}
+                                value={description}
+                                onChange={handleChange}
+                            />
+                        </FormControl>
+
                         <SubmitButton loading={loading} text="Crear Gasto" />
                     </form>
 

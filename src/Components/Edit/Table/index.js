@@ -146,7 +146,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
             project: projectReduce[el.project]?.projectName,
             supplier: supplierReduce[el.supplier]?.businessName,
             expenseDate: moment.unix(el.expenseDate).format("DD-MM-YYYY"),
-            expenseCatalog: catalogReduce[el.expenseCatalog]?.subAccountName,
+            expenseCatalog: catalogReduce[el.expenseCatalog]?.accountName,
         }));
 
         setNewExpenses(newExpenses);
@@ -160,7 +160,7 @@ const Table = ({ option, selectedRows, handleSelectedRows, loading }) => {
             ...el,
             date: unixToDate(el.date),
             project: projectReduce[el.project]?.projectName,
-            catalog: catalogReduce[el.catalog]?.subAccountName,
+            catalog: catalogReduce[el.catalog]?.accountName,
         }));
 
         setNewEarnings(newEarnings);

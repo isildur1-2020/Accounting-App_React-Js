@@ -161,9 +161,9 @@ const Content = ({
                                     </MenuItem>
                                     {accountsFound &&
                                         accountsFound.map(
-                                            ({ id, subAccountName }) => (
+                                            ({ id, accountName }) => (
                                                 <MenuItem key={id} value={id}>
-                                                    {subAccountName}
+                                                    {accountName}
                                                 </MenuItem>
                                             )
                                         )}

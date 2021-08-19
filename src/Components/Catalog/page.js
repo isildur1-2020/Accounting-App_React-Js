@@ -28,10 +28,8 @@ const Content = ({
     handleDeleteAccount,
 }) => {
     const {
-        mayorAccount,
-        mayorAccountName,
-        subAccount,
-        subAccountName,
+        accountNumber,
+        accountName,
         debitColones,
         creditColones,
         orderReport,
@@ -40,7 +38,7 @@ const Content = ({
     return (
         <>
             <Menu title="Crear Cuenta" />
-            <Container component="main" maxWidth="md">
+            <Container component="main" maxWidth="sm">
                 <CssBaseline />
                 <div className="Expense-container">
                     <form onSubmit={handleSubmit}>
@@ -53,10 +51,10 @@ const Content = ({
                                     required
                                     autoFocus
                                     fullWidth
-                                    name="mayorAccount"
-                                    label="Cuenta mayor"
+                                    name="accountNumber"
+                                    label="Cuenta"
                                     variant="outlined"
-                                    value={mayorAccount}
+                                    value={accountNumber}
                                     onChange={handleChangeAccount}
                                 />
                                 <Button
@@ -70,10 +68,10 @@ const Content = ({
                             <FormControl style={{ width: "48%" }}>
                                 <TextField
                                     required
-                                    name="mayorAccountName"
-                                    label="Nombre cuenta mayor"
+                                    name="accountName"
+                                    label="Nombre cuenta"
                                     variant="outlined"
-                                    value={mayorAccountName}
+                                    value={accountName}
                                     onChange={handleChange}
                                 />
                             </FormControl>
@@ -83,35 +81,29 @@ const Content = ({
                         <div
                             className="horizontal-separate"
                             style={{
-                                marginTop: "20px",
+                                marginTop: "32px",
                                 alignItems: "flex-end",
                             }}
                         >
-                            <FormControl style={accountStyle}>
+                            <FormControl style={{ width: "48%" }}>
                                 <TextField
                                     required
-                                    fullWidth
-                                    name="subAccount"
-                                    label="Sub cuenta"
+                                    type="number"
+                                    name="debitColones"
+                                    label="Débito Colones"
                                     variant="outlined"
-                                    value={subAccount}
-                                    onChange={handleChangeAccount}
+                                    value={debitColones}
+                                    onChange={handleChange}
                                 />
-                                <Button
-                                    onClick={() =>
-                                        handleDeleteAccount("subAccount")
-                                    }
-                                >
-                                    <DeleteOutlineIcon />
-                                </Button>
                             </FormControl>
                             <FormControl style={{ width: "48%" }}>
                                 <TextField
                                     required
-                                    name="subAccountName"
-                                    label="Nombre sub cuenta"
+                                    type="number"
+                                    name="creditColones"
+                                    label="Crédito Colones"
                                     variant="outlined"
-                                    value={subAccountName}
+                                    value={creditColones}
                                     onChange={handleChange}
                                 />
                             </FormControl>
@@ -121,75 +113,11 @@ const Content = ({
                         <div
                             className="horizontal-separate"
                             style={{
-                                marginTop: "20px",
+                                marginTop: "32px",
                                 alignItems: "flex-end",
                             }}
                         >
-                            <div
-                                className="horizontal-separate"
-                                style={{ width: "48%" }}
-                            >
-                                <FormControl style={{ width: "48%" }}>
-                                    <TextField
-                                        required
-                                        type="number"
-                                        name="debitColones"
-                                        label="Débito Colones"
-                                        variant="outlined"
-                                        value={debitColones}
-                                        onChange={handleChange}
-                                    />
-                                </FormControl>
-                                <FormControl style={{ width: "48%" }}>
-                                    <TextField
-                                        required
-                                        type="number"
-                                        name="creditColones"
-                                        label="Crédito Colones"
-                                        variant="outlined"
-                                        value={creditColones}
-                                        onChange={handleChange}
-                                    />
-                                </FormControl>
-                            </div>
-                            <div
-                                className="horizontal-separate"
-                                style={{ width: "48%" }}
-                            >
-                                <FormControl style={{ width: "48%" }}>
-                                    <TextField
-                                        required
-                                        name="debitDollars"
-                                        label="Débito Dólares"
-                                        variant="outlined"
-                                        value={(
-                                            debitColones / exchangeRate
-                                        ).toFixed(2)}
-                                    />
-                                </FormControl>
-                                <FormControl style={{ width: "48%" }}>
-                                    <TextField
-                                        required
-                                        name="creditDollars"
-                                        label="Crédito Dólares"
-                                        variant="outlined"
-                                        value={(
-                                            creditColones / exchangeRate
-                                        ).toFixed(2)}
-                                    />
-                                </FormControl>
-                            </div>
-                        </div>
-                        {/* ========================================================================= */}
-
-                        <div
-                            className="horizontal-separate"
-                            style={{
-                                marginTop: "20px",
-                                alignItems: "flex-end",
-                            }}
-                        >
-                            <FormControl style={{ width: "28%" }}>
+                            <FormControl style={{ width: "48%" }}>
                                 <TextField
                                     required
                                     type="number"
@@ -200,7 +128,7 @@ const Content = ({
                                     onChange={handleChange}
                                 />
                             </FormControl>
-                            <FormControl style={{ width: "68%" }}>
+                            <FormControl style={{ width: "48%" }}>
                                 <TextField
                                     required
                                     type="number"

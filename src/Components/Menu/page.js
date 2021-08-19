@@ -70,7 +70,11 @@ const Content = ({
                             Tasa de cambio: {exchangeRate}
                             <EditExchangeRate />
                         </span>
-                        <Button onClick={handleLogout} variant="outlined">
+                        <Button
+                            variant="outlined"
+                            style={{ color: "#fff", borderColor: "#fff" }}
+                            onClick={handleLogout}
+                        >
                             Cerrar Sesión
                         </Button>
                     </div>

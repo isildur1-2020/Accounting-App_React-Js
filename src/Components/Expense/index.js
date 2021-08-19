@@ -31,6 +31,7 @@ const Expense = () => {
         description: "",
         expenseCatalog: "",
         totalExpense: "",
+        typeOfPayment: "",
         modifierUser,
     });
 
@@ -60,8 +61,10 @@ const Expense = () => {
             project: "",
             supplier: "",
             orderId: "",
+            typeOfPayment: "",
             description: "",
             totalExpense: "",
+            modifierUser,
         });
         setCreateDate(new Date());
 

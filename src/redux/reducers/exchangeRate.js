@@ -1,7 +1,7 @@
 import types from "../types/types";
 
 const initialState = {
-    exchangeRate: null,
+    exchangeRate: 0,
 };
 
 const exchangeRateReducer = (state = initialState, action) => {

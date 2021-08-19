@@ -28,7 +28,7 @@ export const AppRouter = () => {
             const URL = `${BASE_URL}/convert`;
             const { data } = await axios.get(URL);
             const { convert } = data;
-            dispatch(exchanceRate(convert));
+            dispatch(exchanceRate(convert.toFixed(4)));
         } catch ({ message }) {
             console.log(message);
         }

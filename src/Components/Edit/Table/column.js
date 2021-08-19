@@ -207,6 +207,12 @@ export const expenseColumn = [
         editable: true,
     },
     {
+        field: "typeOfPayment",
+        headerName: "Método de pago",
+        width: 200,
+        editable: true,
+    },
+    {
         field: "expenseCatalog",
         headerName: "Cuenta",
         width: 200,
@@ -250,26 +256,14 @@ export const catalogColumn = [
         editable: true,
     },
     {
-        field: "mayorAccount",
-        headerName: "Cuenta mayor",
+        field: "accountNumber",
+        headerName: "Cuenta",
         width: 200,
         editable: true,
     },
     {
-        field: "mayorAccountName",
-        headerName: "Nombre cuenta mayor",
-        width: 250,
-        editable: true,
-    },
-    {
-        field: "subAccount",
-        headerName: "Sub cuenta",
-        width: 200,
-        editable: true,
-    },
-    {
-        field: "subAccountName",
-        headerName: "Nombre sub cuenta",
+        field: "accountName",
+        headerName: "Nombre cuenta",
         width: 250,
         editable: true,
     },

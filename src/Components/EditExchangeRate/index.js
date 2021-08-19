@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { exchanceRate } from "../../redux/actions/exchangeRate";
 import { Button } from "@material-ui/core";
 import { TextField, DialogActions, DialogTitle } from "@material-ui/core";
-import { DialogContent, DialogContentText, Dialog } from "@material-ui/core";
+import { DialogContent, Dialog } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 
 const EditExchangeRate = () => {
