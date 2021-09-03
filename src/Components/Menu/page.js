@@ -17,7 +17,7 @@ const Content = ({
 }) => {
     const Nav = () => (
         <Drawer anchor="left" open={drawer} onClose={() => setDrawer(false)}>
-            <div style={{ width: 220 }} role="presentation">
+            <div style={{ width: 280 }} role="presentation">
                 <List>
                     {entities.map((text) => (
                         <ListItem

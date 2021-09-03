@@ -19,7 +19,11 @@ const EditExchangeRate = () => {
         setOpen(false);
     };
 
-    const handleChange = ({ target }) => setRateCustomize(target.value);
+    const handleChange = ({ target }) => {
+        const { value } = target;
+        if (value === "") setRateCustomize(0);
+        else setRateCustomize(value);
+    };
 
     const handleChangeRate = () => {
         dispatch(exchanceRate(rateCustomize));

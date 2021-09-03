@@ -1,22 +1,28 @@
-import React, { useEffect, useCallback } from "react";
-import { HashRouter, Switch, Redirect } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { exchanceRate } from "../redux/actions/exchangeRate";
 import axios from "axios";
 import { BASE_URL } from "../config/api";
+import React, { useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { exchanceRate } from "../redux/actions/exchangeRate";
+import { HashRouter, Switch, Redirect } from "react-router-dom";
 // COMPONENTS
-import PrivateRoute from "./PrivateRoute";
 import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
 // ================================================
 import Login from "../Components/Login/index";
 import Signup from "../Components/Signup/index";
 import Home from "../Components/Home/index";
 import Scheme from "../Components/Scheme/index";
+import SchemeReport from "../Components/SchemeReport/index";
 import Supplier from "../Components/Supplier/index";
+import SupplierReport from "../Components/SupplierReport/index";
 import Client from "../Components/Client/index";
+import ClientReport from "../Components/ClientReport/index";
 import Expense from "../Components/Expense/index";
+import ExpenseReport from "../Components/ExpenseReport/index";
 import Catalog from "../Components/Catalog/index";
+import CatalogReport from "../Components/CatalogReport/index";
 import Earning from "../Components/Earning/index";
+import EarningReport from "../Components/EarningReport/index";
 import Edit from "../Components/Edit/index";
 
 export const AppRouter = () => {
@@ -67,8 +73,20 @@ export const AppRouter = () => {
                 />
                 <PrivateRoute
                     exact
+                    path="/scheme-report"
+                    component={SchemeReport}
+                    isAuthenticated={isAuthenticated}
+                />
+                <PrivateRoute
+                    exact
                     path="/supplier"
                     component={Supplier}
+                    isAuthenticated={isAuthenticated}
+                />
+                <PrivateRoute
+                    exact
+                    path="/supplier-report"
+                    component={SupplierReport}
                     isAuthenticated={isAuthenticated}
                 />
                 <PrivateRoute
@@ -79,14 +97,32 @@ export const AppRouter = () => {
                 />
                 <PrivateRoute
                     exact
+                    path="/client-report"
+                    component={ClientReport}
+                    isAuthenticated={isAuthenticated}
+                />
+                <PrivateRoute
+                    exact
                     path="/expense"
                     component={Expense}
                     isAuthenticated={isAuthenticated}
                 />
                 <PrivateRoute
                     exact
+                    path="/expense-report"
+                    component={ExpenseReport}
+                    isAuthenticated={isAuthenticated}
+                />
+                <PrivateRoute
+                    exact
                     path="/catalog"
                     component={Catalog}
+                    isAuthenticated={isAuthenticated}
+                />
+                <PrivateRoute
+                    exact
+                    path="/catalog-report"
+                    component={CatalogReport}
                     isAuthenticated={isAuthenticated}
                 />
                 <PrivateRoute
@@ -99,6 +135,12 @@ export const AppRouter = () => {
                     exact
                     path="/earning"
                     component={Earning}
+                    isAuthenticated={isAuthenticated}
+                />
+                <PrivateRoute
+                    exact
+                    path="/earning-report"
+                    component={EarningReport}
                     isAuthenticated={isAuthenticated}
                 />
                 <Redirect to="/login" />

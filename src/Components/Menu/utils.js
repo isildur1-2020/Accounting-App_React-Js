@@ -10,21 +10,33 @@ import EditIcon from "@material-ui/icons/Edit";
 
 export const entities = [
     "Proyecto",
+    "Proyecto Consulta",
     "Cliente",
+    "Cliente Consulta",
     "Proveedor",
+    "Proveedor Consulta",
     "Gastos",
+    "Gastos Consulta",
     "Catalogo",
+    "Catalogo Consulta",
     "Ingreso",
+    "Ingreso Consulta",
     "Usuario",
 ];
 
 export const paths = {
     Proyecto: "/scheme",
+    "Proyecto Consulta": "/scheme-report",
     Cliente: "/client",
+    "Cliente Consulta": "/client-report",
     Proveedor: "/supplier",
+    "Proveedor Consulta": "/supplier-report",
     Gastos: "/expense",
+    "Gastos Consulta": "/expense-report",
     Catalogo: "/catalog",
+    "Catalogo Consulta": "/catalog-report",
     Ingreso: "/earning",
+    "Ingreso Consulta": "/earning-report",
     Usuario: "/signup",
     Edit: "/edit",
 };
