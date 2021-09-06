@@ -1,10 +1,22 @@
 import React from "react";
 import { useCatalog } from "../../hooks/useCatalog";
-import { DataGrid } from "@material-ui/data-grid";
+import {
+    DataGrid,
+    GridToolbarContainer,
+    GridToolbarExport,
+} from "@mui/x-data-grid";
 import { catalogColumn } from "./column";
 
 const Table = ({ selectedRows, handleSelectedRows, loading }) => {
     const { accountsFound } = useCatalog(loading);
+
+    function CustomToolbar() {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarExport />
+            </GridToolbarContainer>
+        );
+    }
 
     return (
         <div style={{ height: 430, width: "100%" }}>
@@ -18,6 +30,9 @@ const Table = ({ selectedRows, handleSelectedRows, loading }) => {
                     // SELECTED ROWS
                     selectionModel={selectedRows}
                     onSelectionModelChange={handleSelectedRows}
+                    components={{
+                        Toolbar: CustomToolbar,
+                    }}
                 />
             ) : (
                 <h2>No hay información para mostrar</h2>

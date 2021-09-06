@@ -1,6 +1,10 @@
 import moment from "moment";
 import { expenseColumn } from "./column";
-import { DataGrid } from "@material-ui/data-grid";
+import {
+    DataGrid,
+    GridToolbarContainer,
+    GridToolbarExport,
+} from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 import { useProject } from "../../hooks/useProject";
 import { useExpense } from "../../hooks/useExpense";
@@ -76,6 +80,14 @@ const Table = ({ selectedRows, handleSelectedRows, loading }) => {
         setNewExpenses(newExpenses);
     }, [expensesFound, projectReduce, supplierReduce, catalogReduce]);
 
+    function CustomToolbar() {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarExport />
+            </GridToolbarContainer>
+        );
+    }
+
     return (
         <div style={{ height: 400, width: "100%" }}>
             {newExpenses?.length > 0 ? (
@@ -88,6 +100,9 @@ const Table = ({ selectedRows, handleSelectedRows, loading }) => {
                     // SELECTED ROWS
                     selectionModel={selectedRows}
                     onSelectionModelChange={handleSelectedRows}
+                    components={{
+                        Toolbar: CustomToolbar,
+                    }}
                 />
             ) : (
                 <h2>No hay información para mostrar...</h2>

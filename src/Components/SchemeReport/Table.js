@@ -1,6 +1,10 @@
 import moment from "moment";
 import { projectColumn } from "./column";
-import { DataGrid } from "@material-ui/data-grid";
+import {
+    DataGrid,
+    GridToolbarContainer,
+    GridToolbarExport,
+} from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 // HOOKS
 import { useProject } from "../../hooks/useProject";
@@ -57,6 +61,14 @@ const Table = ({ selectedRows, handleSelectedRows, loading }) => {
         setNewProjects(newProjects);
     }, [projectsFound, clientReduce]);
 
+    function CustomToolbar() {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarExport />
+            </GridToolbarContainer>
+        );
+    }
+
     return (
         <div style={{ height: 430, width: "100%" }}>
             {newProjects?.length > 0 && (
@@ -69,6 +81,9 @@ const Table = ({ selectedRows, handleSelectedRows, loading }) => {
                     // SELECTED ROWS
                     selectionModel={selectedRows}
                     onSelectionModelChange={handleSelectedRows}
+                    components={{
+                        Toolbar: CustomToolbar,
+                    }}
                 />
             )}
         </div>

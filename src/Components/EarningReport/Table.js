@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { DataGrid } from "@material-ui/data-grid";
+import {
+    DataGrid,
+    GridToolbarContainer,
+    GridToolbarExport,
+} from "@mui/x-data-grid";
 import moment from "moment";
 // COLUMNS
 import { earningColumn } from "./column";
@@ -59,6 +63,14 @@ const Table = ({ selectedRows, handleSelectedRows, loading }) => {
         setNewEarnings(newEarnings);
     }, [earningsFound, projectReduce, catalogReduce]);
 
+    function CustomToolbar() {
+        return (
+            <GridToolbarContainer>
+                <GridToolbarExport />
+            </GridToolbarContainer>
+        );
+    }
+
     return (
         <div style={{ height: 400, width: "100%" }}>
             {newEarnings.concat.length > 0 ? (
@@ -71,6 +83,9 @@ const Table = ({ selectedRows, handleSelectedRows, loading }) => {
                     // SELECTED ROWS
                     selectionModel={selectedRows}
                     onSelectionModelChange={handleSelectedRows}
+                    components={{
+                        Toolbar: CustomToolbar,
+                    }}
                 />
             ) : (
                 <h2>No hay información para mostrar...</h2>
