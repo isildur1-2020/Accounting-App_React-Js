@@ -3,7 +3,7 @@ import Content from "./page";
 import { axiosPreInstance } from "../../config/api";
 import { getUser } from "../../utils/getUser";
 
-const Signup = () => {
+const DeleteUser = () => {
     const token = localStorage.getItem("token");
     const axiosInstance = axiosPreInstance(token);
     const modifierUser = getUser(token);
@@ -12,17 +12,14 @@ const Signup = () => {
     const [message, setMessage] = useState(false);
     const [loading, setLoading] = useState(false);
     const [state, setState] = useState({
-        username: "",
         password: "",
-        secret: "",
-        modifierUser,
+        newPassword: "",
     });
 
     const resetForm = () => {
         setState({
-            username: "",
             password: "",
-            secret: "",
+            newPassword: "",
         });
 
         setTimeout(() => {
@@ -35,17 +32,20 @@ const Signup = () => {
         // ENVIAR FORMULARIO
         try {
             setLoading(true);
-            const { data } = await axiosInstance.post("/user", state);
+            const { data } = await axiosInstance.put(
+                `/user/${modifierUser}`,
+                state
+            );
             setLoading(false);
-            const { invalid, errors } = data;
+            const { invalid } = data;
             if (invalid) return setErr("Verificación inválida");
-            else if (errors?.length > 0)
-                return setErr("Completa todos los campos");
             setMessage(data?.message);
-            resetForm();
-        } catch ({ message }) {
-            console.log(message);
+        } catch (err) {
+            console.log(err?.message);
+            setErr(err?.message);
             setLoading(false);
+        } finally {
+            resetForm();
         }
     };
 
@@ -70,4 +70,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default DeleteUser;

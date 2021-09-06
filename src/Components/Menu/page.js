@@ -29,11 +29,11 @@ const Content = ({
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}
-                    <Divider />
+                    {/* <Divider />
                     <ListItem button onClick={() => handleRedirect(paths.Edit)}>
                         <ListItemIcon>{icons.Edit}</ListItemIcon>
                         <ListItemText primary="Editar" />
-                    </ListItem>
+                    </ListItem> */}
                 </List>
             </div>
         </Drawer>

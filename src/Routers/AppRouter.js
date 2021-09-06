@@ -10,6 +10,8 @@ import PrivateRoute from "./PrivateRoute";
 // ================================================
 import Login from "../Components/Login/index";
 import Signup from "../Components/Signup/index";
+import ChangePassword from "../Components/ChangePassword/index";
+import DeleteUser from "../Components/DeleteUser/index";
 import Home from "../Components/Home/index";
 import Scheme from "../Components/Scheme/index";
 import SchemeReport from "../Components/SchemeReport/index";
@@ -57,6 +59,18 @@ export const AppRouter = () => {
                     exact
                     path="/signup"
                     component={Signup}
+                    isAuthenticated={isAuthenticated}
+                />
+                <PrivateRoute
+                    exact
+                    path="/change-password"
+                    component={ChangePassword}
+                    isAuthenticated={isAuthenticated}
+                />
+                <PrivateRoute
+                    exact
+                    path="/delete-user"
+                    component={DeleteUser}
                     isAuthenticated={isAuthenticated}
                 />
                 <PrivateRoute
